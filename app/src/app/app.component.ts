@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = 'TabsPage';
+  rootPage:any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -15,6 +15,15 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.checkPreviousAuth();
     });
+  }
+  checkPreviousAuth(): void {
+    if ((window.localStorage.getItem('phone_number') === "undefined" || window.localStorage.getItem('phone_number') === null) &&
+      (window.localStorage.getItem('password') === "undefined" || window.localStorage.getItem('password') === null)) {
+      this.rootPage = 'LoginPage';
+    } else {
+      this.rootPage = "TabsPage";
+    }
   }
 }
