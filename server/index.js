@@ -1,8 +1,8 @@
 require('dotenv').config();
 require('dotenv').load();
-require('./server/model/auth_model.js');
-require('./server/model/user_model.js');
-require('./server/model/task_model.js');
+require('./model/auth_model');
+require('./model/user_model.js');
+require('./model/task_model.js');
 
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -11,7 +11,7 @@ var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({ session: expressSession });
 var mongoose = require('mongoose');
 
-var config = require('./server/config.js');
+var config = require('./config.js');
 
 var app = express();
 var server = require('http').Server(app);
@@ -76,9 +76,9 @@ db.on('error', console.error.bind(console, 'Connection Error:'));
 
 var router = express.Router();
 
-var auth = require('./server/controllers/auth.js');
-var users = require('./server/controllers/users.js');
-var tasks = require('./server/controllers/tasks.js');
+var auth = require('./controllers/auth.js');
+var users = require('./controllers/users.js');
+var tasks = require('./controllers/tasks.js');
 
 /**
  * Authentication activities
