@@ -21,18 +21,26 @@ user: any;
     })
   }
 
-  changeStatus(){
-    let status = "completed";
-    this.taskService.changeStatus(status).then((response) => {
-      this.upcommingTasks = response;
+  changeStatus(index,task){
+    task.status = "Close";
+    this.taskService.changeStatus(task).then((res) => {
+      if(res){
+        this.upcommingTasks.splice(index,1);
+      }
     })
   }
 
   addNewTask(){
       const modal = this.modalCtrl.create('AddTask', { user: this.user });
       modal.present();
-      modal.onDidDismiss(data => {
-        console.log(data);
+      modal.onDidDismiss(closedata => {
+        let data = {
+          phone_number : this.user,
+          status : "Pending"
+        }
+        this.taskService.upcommingTasks(data).then((response) => {
+          this.upcommingTasks = response;
+        })
       });
   }
 

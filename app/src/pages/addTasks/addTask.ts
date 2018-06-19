@@ -26,7 +26,7 @@ export class AddTask {
 
     this.datePicker.show({
       date: new Date(),
-      mode: 'date',
+      mode: 'datetime',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
     }).then(
       date => console.log('Got date: ', date),
@@ -41,7 +41,8 @@ export class AddTask {
       phone_number : this.user
     }
     this.taskService.addTasks(data).then((response) => {
-
+      console.log(response);
+      this.viewCtrl.dismiss();
     })
   }
 
