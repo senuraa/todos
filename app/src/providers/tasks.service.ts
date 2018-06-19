@@ -67,4 +67,16 @@ export class TasksService {
     })
   }
 
+  sendTaskSMS(smsData){
+      return new Promise((resolve, reject) => {
+          this.http.post(Constants.URL_SENDSMS,smsData)
+          .subscribe(data => {
+              resolve(data)
+          },
+        err => {
+            reject(err);
+        })
+      })
+  }
+
 }

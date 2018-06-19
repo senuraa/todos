@@ -13,6 +13,7 @@
         <p>{{task.description}}</p>
         <p>{{task.project}}</p>
         <p>{{task.due_date}}</p>
+        <p *ngIf="task.condition == 'overdue'">{{task.condition}}</p>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="changeStatus(idx,task)">Completed</button>

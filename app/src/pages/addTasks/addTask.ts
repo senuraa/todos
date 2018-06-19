@@ -13,7 +13,7 @@ export class AddTask {
   myform: FormGroup;
   user: any;
   status = ["Pending", "Close", "Open"];
-  
+
   constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController) {
     this.myform = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -37,12 +37,23 @@ export class AddTask {
 
   addNewTask() {
     let data = {
-      formValues : this.myform.value,
-      phone_number : this.user
+      formValues: this.myform.value,
+      phone_number: this.user
     }
     this.taskService.addTasks(data).then((response) => {
       console.log(response);
-      this.viewCtrl.dismiss();
+      if (response) {
+        this.viewCtrl.dismiss();
+      } else {
+        var smsData = {
+          phoneNumber: this.myform.value.assigned_to,
+          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. http://todos.com'
+        }
+        // this.taskService.sendTaskSMS(smsData).then((res) => {
+        //   this.viewCtrl.dismiss();
+        // })
+        this.viewCtrl.dismiss();
+      }
     })
   }
 
