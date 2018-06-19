@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('dotenv').load();
-require('./model/auth_model');
+require('./model/auth_model.js');
 require('./model/user_model.js');
 require('./model/task_model.js');
 
@@ -91,6 +91,7 @@ router.route('/auth/logout').get(auth.logout);
 /**
  * Task activities
  */
+router.route('/task/changeTaskStatus').post(tasks.changetaskstatus);
 router.route('/task/selectedTask').post(tasks.taskdata);
 router.route('/task/addTask').post(tasks.addtask);
 router.route('/task/allTasks').post(tasks.alltasks);
@@ -109,6 +110,7 @@ router.route('/accountsecurity/onetouch').post(auth.createonetouch);
 /**
  * User Activities
  */
+router.route('/users/sendSMS').post(users.sendSMS);
 router.route('/users/allusers').post(users.allUsers);
 router.route('/accountsecurity/start').post(users.requestPhoneVerification);
 router.route('/accountsecurity/verifyPhoneToken').post(users.verifyPhoneToken);

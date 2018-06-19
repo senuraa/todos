@@ -17,10 +17,12 @@
   "author": "Josh Staples",
   "license": "MIT",
   "dependencies": {
+    "adm-dtp": "^1.2.0",
     "angular": "^1.6.9",
     "angular-animate": "^1.6.10",
     "angular-cookies": "^1.6.10",
     "angular-gridster": "^0.13.14",
+    "angular-pull-to-refresh": "^0.3.0",
     "angular-ui-router": "^1.0.3",
     "authy-client": "^1.0.10",
     "body-parser": "^1.15.2",
@@ -36,7 +38,8 @@
     "mongoose": "^4.6.5",
     "nodemon": "^1.11.0",
     "qs": "^6.3.0",
-    "request": "^2.76.0"
+    "request": "^2.76.0",
+    "twilio": "^3.17.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.4",
