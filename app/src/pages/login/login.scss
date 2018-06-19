@@ -1,6 +1,6 @@
 page-login {
     background-color: map-get($colors, appbg) !important;
-    overflow:hidden;
+    overflow: hidden;
     ion-content {
         background-color: map-get($colors, appbg) !important;
         color: map-get($map: $colors, $key:apptxt) !important;
@@ -10,7 +10,13 @@ page-login {
             top: 40%;
             left: 50%;
             width: 90%;
+            max-width: 500px;
             text-align: center;
+            -webkit-transition: all 1s ease-in;
+            -moz-transition: all 1s ease-in;
+            -ms-transition: all 1s ease-in;
+            -o-transition: all 1s ease-in;
+            transition: all 1s ease-in;
             .logo {
                 font-size: 60px;
                 font-weight: bold;
@@ -28,19 +34,42 @@ page-login {
             }
             button {
                 width: 100%;
-                max-width: 300px;
                 font-size: 16px;
                 border: 2px solid map-get($map: $colors, $key: appgreen);
                 padding: 12px 0px;
-                margin-top: 5%;
+                margin-top: 10%;
                 outline: none;
-                color:map-get($map: $colors, $key: appgreen);
+                color: map-get($map: $colors, $key: appgreen);
                 background: rgba(0, 0, 0, 0);
                 transition: all cubic-bezier(0.0, 0.0, 0.2, 1) 0.3s;
-                padding:10px;
-                .button--container{
-                    display:flex;
-                    justify-content: space-between;
+                padding: 10px;
+                .button--container {
+                    display: flex;
+                    justify-content: center;
+                    div {
+                        margin-left: 10px;
+                    }
+                }
+            }
+            button.activated {
+                color: map-get($map: $colors, $key: appbg);
+                background-color: map-get($map: $colors, $key: appgreen);
+            }
+            .step--login2 {
+                -webkit-transition: all 1s ease-in;
+                -moz-transition: all 1s ease-in;
+                -ms-transition: all 1s ease-in;
+                -o-transition: all 1s ease-in;
+                transition: all 1s ease-in;
+            }
+            ion-item {
+                background-color: rgba(255, 255, 255, 0);
+                padding-left: 0 !important;
+                .item-inner {
+                    border-bottom-color: map-get($map: $colors, $key: apptxtdark) !important;
+                }
+                ion-input {
+                    color: map-get($map: $colors, $key: apptxt) !important;
                 }
             }
         }
