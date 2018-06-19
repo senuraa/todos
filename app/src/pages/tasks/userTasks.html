@@ -5,9 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 (click)="addNewTask()">New Task</h2>
   <ion-list>
-    <ion-item *ngFor="let task of upcommingTasks">
+    <ion-item *ngFor="let task of allTasks">
       <h3>{{task.title}}</h3>
       <p>{{task.description}}</p>
       <p>{{task.project}}</p>

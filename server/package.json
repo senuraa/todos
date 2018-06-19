@@ -39,7 +39,8 @@
     "nodemon": "^1.11.0",
     "qs": "^6.3.0",
     "request": "^2.76.0",
-    "twilio": "^3.17.0"
+    "twilio": "^3.17.0",
+    "cors": "^2.8.4"
   },
   "devDependencies": {
     "nodemon": "^1.17.4",
