@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage } from 'ionic-angular';
+import { NavController,IonicPage,ModalController } from 'ionic-angular';
+import { TasksService } from '../../providers/tasks.service';
 
 @IonicPage()
 @Component({
@@ -7,9 +8,60 @@ import { NavController,IonicPage } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController) {
-
+upcommingTasks : any;
+user: any;
+response:any = [];
+todayDate = new Date();
+  constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController) {
+    this.user = window.localStorage.getItem("phone_number");
+    let data = {
+      phone_number : this.user,
+      status : "Pending"
+    }
+    this.taskService.upcommingTasks(data).then((resp) => {
+      this.response = resp;
+      for (var i = 0; i < this.response.length; i++) {
+        if (this.todayDate < new Date(this.response[i].due_date)) {
+          this.response[i].condition = 'upcoming'
+        } else {
+          this.response[i].condition = 'overdue'
+        }
+    }
+      this.upcommingTasks = this.response;
+    })
   }
+
+  changeStatus(index,task){
+    task.status = "Close";
+    this.taskService.changeStatus(task).then((res) => {
+      if(res){
+        this.upcommingTasks.splice(index,1);
+      }
+    })
+  }
+
+  addNewTask(){
+      const modal = this.modalCtrl.create('AddTask', { user: this.user });
+      modal.present();
+      modal.onDidDismiss(closedata => {
+        let data = {
+          phone_number : this.user,
+          status : "Pending"
+        }
+        this.taskService.upcommingTasks(data).then((resp) => {
+          this.response = resp;
+          for (var i = 0; i < this.response.length; i++) {
+            if (this.todayDate < new Date(this.response[i].due_date)) {
+              this.response[i].condition = 'upcoming'
+            } else {
+              this.response[i].condition = 'overdue'
+            }
+        }
+          this.upcommingTasks = this.response;
+        })
+      });
+  }
+
+
 
 }

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="viewCtrl.dismiss()">
+          <ion-icon name="arrow-back"></ion-icon>
+      </button>
+  </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form novalidate [formGroup]="myform">
+
+    <ion-item>
+        <label>Title</label>
+        <input type="text" class="form-control" formControlName="title">
+      </ion-item>
+
+      <ion-item>
+        <label>Description</label>
+        <input type="text" class="form-control" formControlName="description">
+      </ion-item>
+
+      <ion-item>
+      <label>Project</label>
+      <input type="text" class="form-control" formControlName="project">
+    </ion-item>
+
+    <ion-item>
+      <label>Assigned To</label>
+      <input type="text" class="form-control" formControlName="assigned_to">
+    </ion-item>
+
+    <ion-item>
+      <label>Status</label>
+      <select class="form-control" formControlName="status">
+        <option value="">Please select a status</option>
+        <option *ngFor="let stat of status" [value]="stat">{{stat}}
+        </option>
+      </select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date"></ion-datetime>
+    </ion-item>
+    <button ion-button full (click)="addNewTask()">Full Button</button>
+  </form>
+</ion-content>

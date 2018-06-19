@@ -2,11 +2,13 @@ import { NgModule, ErrorHandler,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../providers/auth.service';
 import { TasksService } from '../providers/tasks.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import {CountryPickerModule} from 'ngx-country-picker'
 
@@ -18,6 +20,9 @@ import {CountryPickerModule} from 'ngx-country-picker'
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     CountryPickerModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -29,8 +34,8 @@ import {CountryPickerModule} from 'ngx-country-picker'
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    TasksService
-  ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+    TasksService,
+    DatePicker
+  ]
 })
 export class AppModule { }

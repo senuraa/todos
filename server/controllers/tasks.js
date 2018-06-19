@@ -11,16 +11,15 @@ var ObjectId = require('mongoose').Types.ObjectId;
  * @param res
  */
 exports.addtask = function (req, res) {
-    //console.log(req.body);
-    var phone_number = req.body.mobilePhone;
-    var title = req.body.data.inputFields[0].model;
-    var description = req.body.data.inputFields[1].model;
-    var status = req.body.data.optionFields[0].model;
-    var assigned_user = req.body.data.inputFields[2].model;
+    var phone_number = req.body.phone_number;
+    var title = req.body.formValues.title;
+    var description = req.body.formValues.description;
+    var status = req.body.formValues.status;
+    var assigned_user = req.body.formValues.assigned_to;
     var created_date = new Date();
-    var due_UnformattedDate = req.body.data.dateFields[0].model;
+    var due_UnformattedDate = req.body.formValues.date;
     var due_date = new Date(due_UnformattedDate);
-    var project = req.body.data.inputFields[3].model;
+    var project = req.body.formValues.project;
     var task = new Task({ phone_number: phone_number });
     task.set('title', title);
     task.set('description', description);
