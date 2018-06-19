@@ -1,5 +1,6 @@
 page-login {
     background-color: map-get($colors, appbg) !important;
+    overflow:hidden;
     ion-content {
         background-color: map-get($colors, appbg) !important;
         color: map-get($map: $colors, $key:apptxt) !important;

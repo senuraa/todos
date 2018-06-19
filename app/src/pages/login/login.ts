@@ -14,9 +14,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  
+  subTitle: string = 'Create a Todos account and add your team members'
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
-
+  onInitButtonClick() {
+    
+  }
 }

@@ -7,12 +7,22 @@
 
 <ion-content>
   <div class="login--container">
-    <div class="logo">
-      Todos<span>.</span>
+    <div class="step1--login">
+      <div class="logo">
+        Todos
+        <span>.</span>
+      </div>
+      <div class="sub-title">
+        Create a Todos account and add your team members
+      </div>
+      <button (click)="onInitButtonClick()">
+        <div class="button--container">
+          <ion-icon name="keypad"></ion-icon>
+          <div>Continue with the phone number</div>
+        </div>
+      </button>
     </div>
-    <div class="sub-title">
-      Create a Todos account and add your team members
-    </div>
-    <button><div class="button--container"><ion-icon name="keypad"></ion-icon><div>Continue with the phone number</div></div></button>
+    
   </div>
+
 </ion-content>
