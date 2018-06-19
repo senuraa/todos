@@ -19,7 +19,16 @@ import {CountryPickerModule} from 'ngx-country-picker'
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,
+      {
+        tabsPlacement: 'top',
+        platforms:{
+          ios:{
+            tabsPlacement:'bottom'
+          }
+        }
+      }
+    ),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
