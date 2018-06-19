@@ -7,20 +7,34 @@
 
 <ion-content>
   <div class="login--container">
-    <div class="step1--login">
-      <div class="logo">
-        Todos
-        <span>.</span>
-      </div>
+      <div class="logo">Todos<span>.</span></div>
       <div class="sub-title">
-        Create a Todos account and add your team members
+        {{subTitle}}
       </div>
+    <div class="step1--login" *ngIf="loginInit">
       <button (click)="onInitButtonClick()">
         <div class="button--container">
           <ion-icon name="keypad"></ion-icon>
           <div>Continue with the phone number</div>
         </div>
       </button>
+    </div>
+    <div class="step2--login" *ngIf="loginDetEnter">
+        <form [formGroup]="loginForm">
+          <ion-item>
+            <ion-label stacked color="apptxt">First Name</ion-label>
+            <ion-input type="text" formControlName="first_name" color="apptxt"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked color="apptxt">Last Name</ion-label>
+            <ion-input type="text" formControlName="last_name"  color="apptxt"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked color="apptxt">Phone Number</ion-label>
+            <ion-input type="tel" formControlName="phone_number" color="apptxt"></ion-input>
+          </ion-item>
+        </form>
+      <button>Login</button>
     </div>
     
   </div>
