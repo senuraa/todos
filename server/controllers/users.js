@@ -2,7 +2,29 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var config = require('../config.js');
 var phoneReg = require('../lib/phone_verification')(config.API_KEY);
+var client = require('twilio')(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_AUTH_TOKEN
+  );
 
+/**
+ * Register a phone
+ *
+ * @param req
+ * @param res
+ */
+exports.sendSMS = function (req, res) {
+    var phone_number = req.body.phoneNumber;
+    var phone = "+" + phone_number;
+    var message = req.body.message;
+    client.messages.create({
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phone,
+      body: message
+    }).then((message) => console.log(message.sid));
+    
+
+};
 
 /**
  * Register a phone
@@ -56,14 +78,14 @@ exports.verifyPhoneToken = function (req, res) {
                 console.log('Confirm phone success confirming code: ', response);
                 if (response.success) {
 
-                        User.findOne({ phone_number: phone_number }).exec(function (err, user) {
+                        User.findOne({ phone_number: country_code + phone_number }).exec(function (err, user) {
                             if (err) {
                                 console.log('find existing user error', err);
                                 res.status(500).json(err);
                                 return;
                             }
                             if (user) {
-                                User.findOneAndUpdate({ phone_number: phone_number }, { $set: { country_code: country_code, firstname: firstname, lastname: lastname } },{new: true}, function(err, doc){
+                                User.findOneAndUpdate({ phone_number: country_code + phone_number }, { $set: { country_code: country_code, firstname: firstname, lastname: lastname } },{new: true}, function(err, doc){
                                     if (err) {
                                         console.log('Error Updating User', err);
                                         res.status(500).json(err);
@@ -72,7 +94,7 @@ exports.verifyPhoneToken = function (req, res) {
                                     }
                                 });
                             } else {
-                                user = new User({ phone_number: phone_number });
+                                user = new User({ phone_number: country_code + phone_number });
                                 user.set('country_code', country_code);
                                 user.set('firstname', firstname);
                                 user.set('lastname', lastname);
