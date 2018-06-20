@@ -3,6 +3,7 @@ import { NavController, IonicPage, ViewController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
+import { Contacts } from '@ionic-native/contacts';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ export class AddTask {
   user: any;
   status = ["Pending", "Close", "Open"];
 
-  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController, private contacts: Contacts) {
     this.myform = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -22,6 +23,11 @@ export class AddTask {
       assigned_to: new FormControl('', Validators.required),
       status: new FormControl('Pending', Validators.required),
       date: new FormControl('')
+    });
+
+    this.contacts.find(['name', 'phoneNumbers'], {filter: "", multiple: true})
+    .then(data => {
+      console.log(data);
     });
 
     this.datePicker.show({
@@ -49,9 +55,9 @@ export class AddTask {
           phoneNumber: this.myform.value.assigned_to,
           message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. http://todos.com'
         }
-        // this.taskService.sendTaskSMS(smsData).then((res) => {
-        //   this.viewCtrl.dismiss();
-        // })
+        this.taskService.sendTaskSMS(smsData).then((res) => {
+          this.viewCtrl.dismiss();
+        })
         this.viewCtrl.dismiss();
       }
     })

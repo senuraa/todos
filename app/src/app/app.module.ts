@@ -9,6 +9,7 @@ import { AuthService } from '../providers/auth.service';
 import { TasksService } from '../providers/tasks.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
+import { Contacts} from '@ionic-native/contacts';
 
 import {CountryPickerModule} from 'ngx-country-picker'
 
@@ -44,7 +45,8 @@ import {CountryPickerModule} from 'ngx-country-picker'
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     TasksService,
-    DatePicker
+    DatePicker,
+    Contacts
   ]
 })
 export class AppModule { }
