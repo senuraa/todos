@@ -9,8 +9,8 @@ import { AuthService } from '../providers/auth.service';
 import { TasksService } from '../providers/tasks.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
-
-import {CountryPickerModule} from 'ngx-country-picker'
+import { DatePipe } from '@angular/common'
+import { CountryPickerModule } from 'ngx-country-picker'
 
 
 @NgModule({
@@ -22,9 +22,9 @@ import {CountryPickerModule} from 'ngx-country-picker'
     IonicModule.forRoot(MyApp,
       {
         tabsPlacement: 'top',
-        platforms:{
-          ios:{
-            tabsPlacement:'bottom'
+        platforms: {
+          ios: {
+            tabsPlacement: 'bottom'
           }
         }
       }
@@ -44,7 +44,8 @@ import {CountryPickerModule} from 'ngx-country-picker'
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     TasksService,
-    DatePicker
+    DatePicker,
+    DatePipe
   ]
 })
 export class AppModule { }

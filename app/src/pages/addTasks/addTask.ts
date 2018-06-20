@@ -3,7 +3,7 @@ import { NavController, IonicPage, ViewController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
-
+import { DatePipe } from '@angular/common';
 @IonicPage()
 @Component({
   selector: 'page-addTask',
@@ -14,7 +14,7 @@ export class AddTask {
   user: any;
   status = ["Pending", "Close", "Open"];
 
-  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController,private datePipe:DatePipe) {
     this.myform = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -24,17 +24,25 @@ export class AddTask {
       date: new FormControl('')
     });
 
+    this.user = window.localStorage.getItem("todos_phone_number");
+  }
+
+  showDateTimePicker(event) {
+    console.log(event)
     this.datePicker.show({
       date: new Date(),
       mode: 'datetime',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
     }).then(
-      date => console.log('Got date: ', date),
+      date => {
+        if (date != undefined) {
+          event._native.nativeElement.value = this.datePipe.transform(date,'short')
+        }
+
+      },
       err => console.log('Error occurred while getting date: ', err)
     );
-    this.user = window.localStorage.getItem("phone_number");
   }
-
   addNewTask() {
     let data = {
       formValues: this.myform.value,
@@ -60,5 +68,4 @@ export class AddTask {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
 }

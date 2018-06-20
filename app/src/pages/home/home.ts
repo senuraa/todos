@@ -13,23 +13,23 @@ user: any;
 response:any = [];
 todayDate = new Date();
   constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController) {
-    this.user = window.localStorage.getItem("phone_number");
-    let data = {
-      phone_number : this.user,
-      status : "Pending"
-    }
-    this.taskService.upcommingTasks(data).then((resp) => {
-      this.response = resp;
-      for (var i = 0; i < this.response.length; i++) {
-        if (this.todayDate < new Date(this.response[i].due_date)) {
-          this.response[i].condition = 'upcoming'
-        } else {
-          this.response[i].condition = 'overdue'
-        }
-    }
-      this.upcommingTasks = this.response;
-      console.log(this.response)
-    })
+    // this.user = window.localStorage.getItem("phone_number");
+    // let data = {
+    //   phone_number : this.user,
+    //   status : "Pending"
+    // }
+    // this.taskService.upcommingTasks(data).then((resp) => {
+    //   this.response = resp;
+    //   for (var i = 0; i < this.response.length; i++) {
+    //     if (this.todayDate < new Date(this.response[i].due_date)) {
+    //       this.response[i].condition = 'upcoming'
+    //     } else {
+    //       this.response[i].condition = 'overdue'
+    //     }
+    // }
+    //   this.upcommingTasks = this.response;
+    //   console.log(this.response)
+    // })
   }
 
   changeStatus(index,task){
@@ -63,6 +63,24 @@ todayDate = new Date();
       });
   }
 
-
+  ionViewDidEnter(){
+    this.user = window.localStorage.getItem("todos_phone_number");
+    let data = {
+      phone_number : this.user,
+      status : "Pending"
+    }
+    this.taskService.upcommingTasks(data).then((resp) => {
+      this.response = resp;
+      for (var i = 0; i < this.response.length; i++) {
+        if (this.todayDate < new Date(this.response[i].due_date)) {
+          this.response[i].condition = 'upcoming'
+        } else {
+          this.response[i].condition = 'overdue'
+        }
+    }
+      this.upcommingTasks = this.response;
+      console.log(this.response)
+    })
+  }
 
 }
