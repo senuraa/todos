@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {IonicPage} from 'ionic-angular'
-import { UserTaskPage } from '../tasks/userTasks';
 
 
 @IonicPage()

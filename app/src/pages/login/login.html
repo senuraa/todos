@@ -12,7 +12,7 @@
         {{subTitle}}
       </div>
     <div class="step1--login" *ngIf="loginInit">
-      <button (click)="onInitButtonClick()">
+      <button (click)="onInitButtonClick()" class="login--button">
         <div class="button--container">
           <ion-icon name="keypad"></ion-icon>
           <div>Continue with the phone number</div>
@@ -29,12 +29,18 @@
             <ion-label stacked color="apptxt">Last Name</ion-label>
             <ion-input type="text" formControlName="last_name"  color="apptxt"></ion-input>
           </ion-item>
+          <ion-item class="countryCode--item">
+              <ion-label floating>Country</ion-label>
+              <ion-select formControlName="country_code" interface='popover'>
+                <ion-option *ngFor="let country of countries" [value]="country.callingCode[0]" [selected]="country.name.common==='Sri Lanka'">{{ country.name.common }}</ion-option>
+              </ion-select>
+            </ion-item>
           <ion-item>
-            <ion-label stacked color="apptxt">Phone Number</ion-label>
+            <ion-label stacked color="apptxt">Phone Number (07X XXX XXXX)</ion-label>
             <ion-input type="tel" formControlName="phone_number" color="apptxt"></ion-input>
           </ion-item>
         </form>
-      <button>Login</button>
+      <button class="login--button" (click)='login(loginForm.value)'>Login</button>
     </div>
     
   </div>

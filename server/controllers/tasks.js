@@ -5,7 +5,6 @@ var User = mongoose.model('User');
 var qs = require('qs');
 var request = require('request');
 var ObjectId = require('mongoose').Types.ObjectId;
-var moment = require('moment');
 
 /**
  * @param req
@@ -20,7 +19,6 @@ exports.addtask = function (req, res) {
     var created_date = new Date();
 
     var due_UnformattedDate = req.body.formValues.date;
-    // var local_due_date= moment.utc(due_UnformattedDate ).local().format('YYYY-MM-DD HH:mm:ss');
     var due_date = new Date(due_UnformattedDate);
 
     var project = req.body.formValues.project;
