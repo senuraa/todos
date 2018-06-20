@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var qs = require('qs');
 var request = require('request');
 var ObjectId = require('mongoose').Types.ObjectId;
+var moment = require('moment');
 
 /**
  * @param req
@@ -17,8 +18,11 @@ exports.addtask = function (req, res) {
     var status = req.body.formValues.status;
     var assigned_user = req.body.formValues.assigned_to;
     var created_date = new Date();
+
     var due_UnformattedDate = req.body.formValues.date;
+    // var local_due_date= moment.utc(due_UnformattedDate ).local().format('YYYY-MM-DD HH:mm:ss');
     var due_date = new Date(due_UnformattedDate);
+
     var project = req.body.formValues.project;
     var task = new Task({ phone_number: phone_number });
     task.set('title', title);
@@ -136,6 +140,24 @@ exports.changetaskstatus = function (req, res) {
             res.status(500).json(err);
         } else {
             res.status(200).json(doc);
+        }
+    });
+}
+
+/**
+ * @param req
+ * @param res
+ */
+exports.deleteTask = function (req, res) {
+    var phone_no = req.body.phone_number;
+    Task.find({ assigned_user: phone_no }).exec(function (err, tasks) {
+        if (err) {
+            console.log('Tasks retrieve error', err);
+            res.status(500).json(err);
+            return;
+        }
+        if (tasks) {
+            res.status(200).json(tasks);
         }
     });
 }

@@ -6,11 +6,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let task of allTasks">
-      <h3>{{task.title}}</h3>
-      <p>{{task.description}}</p>
-      <p>{{task.project}}</p>
-      <p>{{task.due_date}}</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let task of allTasks; let idx = index">
+      <ion-item>
+        <h3>{{task.title}}</h3>
+        <p>{{task.description}}</p>
+        <p>{{task.project}}</p>
+        <p>{{task.due_date}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button (click)="deleteTask(idx,task)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

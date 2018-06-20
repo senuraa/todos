@@ -67,16 +67,28 @@ export class TasksService {
     })
   }
 
-  sendTaskSMS(smsData){
-      return new Promise((resolve, reject) => {
-          this.http.post(Constants.URL_SENDSMS,smsData)
-          .subscribe(data => {
-              resolve(data)
-          },
-        err => {
+  sendTaskSMS(smsData) {
+    return new Promise((resolve, reject) => {
+      this.http.post(Constants.URL_SENDSMS, smsData)
+        .subscribe(data => {
+          resolve(data)
+        },
+          err => {
             reject(err);
-        })
-      })
+          })
+    })
+  }
+
+  deleteTask(task) {
+    return new Promise((resolve, reject) => {
+      this.http.post(Constants.URL_DELETETASK, task)
+        .subscribe(data => {
+          resolve(data)
+        },
+          err => {
+            reject(err);
+          })
+    })
   }
 
 }

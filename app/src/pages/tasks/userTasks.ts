@@ -17,4 +17,12 @@ user:any = {};
     })
   }
 
+  deleteTask(index, task){
+    this.taskService.deleteTask(this.user).then((response) => {
+      if(response){
+        this.allTasks.splice(index,1);
+      }
+    })
+  }
+
 }
