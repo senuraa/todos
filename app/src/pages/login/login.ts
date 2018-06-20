@@ -26,8 +26,8 @@ export class LoginPage {
     this.countryPickerService.getCountries().subscribe((countries: ICountry[]) => //get all country
       this.countries = countries);  // store it in countries
     this.loginForm = this.formBuilder.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       phone_number: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
       country_code: ['94']
     })

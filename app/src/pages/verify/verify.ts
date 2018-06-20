@@ -19,8 +19,8 @@ export class VerifyPage {
 
   }
   user: any = {
-    first_name: this.navParams.get('first_name'),
-    last_name: this.navParams.get('last_name'),
+    firstname: this.navParams.get('firstname'),
+    lastname: this.navParams.get('lastname'),
     phone_number: this.navParams.get('phone_number'),
     country_code: this.navParams.get('country_code'),
     token: ''
@@ -28,7 +28,7 @@ export class VerifyPage {
   verify(){
     this.authService.verifyToken(this.user).then((response)=>{
       console.log(response)
-      window.localStorage.setItem('phone_number', this.user.phone_number);
+      window.localStorage.setItem('todos_phone_number', this.user.phone_number);
       this.navCtrl.push('TabsPage');
     },(err)=>{
       console.log(err)
