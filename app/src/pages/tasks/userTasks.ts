@@ -18,7 +18,12 @@ user:any = {};
   }
 
   deleteTask(index, task){
-    this.taskService.deleteTask(this.user).then((response) => {
+    let data = {
+      phone_number : this.user.phone_number,
+      taskId : task._id,
+      status : "Deleted"
+    }
+    this.taskService.deleteTask(data).then((response) => {
       if(response){
         this.allTasks.splice(index,1);
       }

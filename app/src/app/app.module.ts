@@ -9,8 +9,10 @@ import { AuthService } from '../providers/auth.service';
 import { TasksService } from '../providers/tasks.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 import { CountryPickerModule } from 'ngx-country-picker'
+import { Contacts} from '@ionic-native/contacts';
+
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { CountryPickerModule } from 'ngx-country-picker'
     AuthService,
     TasksService,
     DatePicker,
-    DatePipe
+    DatePipe,
+    Contacts
   ]
 })
 export class AppModule { }

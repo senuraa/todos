@@ -56,7 +56,7 @@ exports.addtask = function (req, res) {
  */
 exports.tasksofuser = function (req, res) {
     var phone_no = req.body.phone_number;
-    Task.find({ assigned_user: phone_no }).exec(function (err, tasks) {
+    Task.find({ assigned_user: phone_no, status: { $ne: "Deleted" } }).exec(function (err, tasks) {
         if (err) {
             console.log('Tasks retrieve error', err);
             res.status(500).json(err);
@@ -92,11 +92,21 @@ exports.alltasks = function (req, res) {
 exports.upcomingtasks = function (req, res) {
     var phone_no = req.body.phone_number;
     var status = req.body.status;
-    var n = new Date().toLocaleDateString();
-    var today = new Date(n);
-    var tomorrow = new Date(n);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    Task.find({ "due_date": { "$gte": today, "$lt": tomorrow }, "assigned_user": phone_no, "status": status }).exec(function (err, tasks) {
+    // var n = new Date().toLocaleDateString();
+    // var today = new Date(n);
+    // var tomorrow = new Date(n);
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+    // Task.find({ "due_date": { "$gte": today, "$lt": tomorrow }, "assigned_user": phone_no, "status": status }).exec(function (err, tasks) {
+    //     if (err) {
+    //         console.log('Tasks retrieve error', err);
+    //         res.status(500).json(err);
+    //         return;
+    //     }
+    //     if (tasks) {
+    //         res.status(200).json(tasks)
+    //     }
+    // });
+        Task.find({ "assigned_user": phone_no, "status": status }).exec(function (err, tasks) {
         if (err) {
             console.log('Tasks retrieve error', err);
             res.status(500).json(err);
@@ -148,14 +158,14 @@ exports.changetaskstatus = function (req, res) {
  */
 exports.deleteTask = function (req, res) {
     var phone_no = req.body.phone_number;
-    Task.find({ assigned_user: phone_no }).exec(function (err, tasks) {
+    var id = req.body.taskId;
+    var status = req.body.status;
+    Task.findOneAndUpdate({ "_id": new ObjectId(id), assigned_user : phone_no }, { $set: { status: status } },{new: true}, function(err, doc){
         if (err) {
-            console.log('Tasks retrieve error', err);
+            console.log('Error Updating User', err);
             res.status(500).json(err);
-            return;
-        }
-        if (tasks) {
-            res.status(200).json(tasks);
+        } else {
+            res.status(200).json(doc);
         }
     });
 }

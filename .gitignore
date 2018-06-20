@@ -104,6 +104,7 @@ plugins/
 plugins/android.json
 plugins/ios.json
 www/
+package-lock.json
 
 #vscode
 .vscode/*
