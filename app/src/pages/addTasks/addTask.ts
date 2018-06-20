@@ -9,7 +9,8 @@ import { Contacts } from '@ionic-native/contacts';
 @IonicPage()
 @Component({
   selector: 'page-addTask',
-  templateUrl: 'addTask.html'
+  templateUrl: 'addTask.html',
+  providers: [Contacts]
 })
 export class AddTask {
   myform: FormGroup;
@@ -27,6 +28,12 @@ export class AddTask {
       date: new FormControl('')
     });
 
+    // this.contacts.find(["*"], {filter: "", multiple: true, hasPhoneNumber:true})
+    // .then((data) => {
+    //   console.log("here" +data);
+    // }, err => {
+    //   console.log("here" +err);
+    // });
     this.user = window.localStorage.getItem("todos_phone_number");
   }
 
