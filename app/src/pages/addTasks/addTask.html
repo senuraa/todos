@@ -1,35 +1,47 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="appbg">
     <ion-title>Home</ion-title>
     <ion-buttons left>
-      <button ion-button icon-only (click)="viewCtrl.dismiss()">
+      <button ion-button icon-only (click)="viewCtrl.dismiss()" color="apppink">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="outer-content">
   <form novalidate [formGroup]="myform">
+    <ion-list>
+      <ion-list-header>
+        Details
+      </ion-list-header>
+      <ion-item>
+        <ion-label floating>
+          Title
+        </ion-label>
+        <ion-input type="text" class="form-control" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>
+          Description
+        </ion-label>
+        <ion-input type="text" class="form-control" formControlName="description"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <label>Title</label>
-      <input type="text" class="form-control" formControlName="title">
-    </ion-item>
-
-    <ion-item>
-      <label>Description</label>
-      <input type="text" class="form-control" formControlName="description">
-    </ion-item>
-
-    <ion-item>
-      <label>Project</label>
-      <input type="text" class="form-control" formControlName="project">
-    </ion-item>
-
-    <ion-item>
-        <label>Assigned To</label>
-        <input type="text" list="list" name="list" class="form-control" formControlName="assigned_to">
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        Assignment & Details
+      </ion-list-header>
+      <ion-item>
+        <ion-label floating>
+          Project
+        </ion-label>
+        <ion-input type="text" class="form-control" formControlName="project"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Assigned To</ion-label>
+        <ion-input type="text" class="form-control" formControlName="assigned_to"></ion-input>
         <datalist id="list">
           <option value="new">new</option>
           <option value="new">new</option>
@@ -37,21 +49,34 @@
           <option value="new">new</option>
         </datalist>
       </ion-item>
+      <ion-item>
+        <ion-label>Task Status</ion-label>
+        <ion-select formControlName="status" formControlName="status" interface="popover">
+          <ion-option *ngFor="let stat of status" [value]="stat">{{stat}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb"></ion-datetime>
+        <ion-input formControlName="date" (ionFocus)="showDateTimePicker($event)" showWhen="ios,android,windows"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <label>Status</label>
-      <select class="form-control" formControlName="status">
-        <option value="">Please select a status</option>
-        <option *ngFor="let stat of status" [value]="stat">{{stat}}
-        </option>
-      </select>
-    </ion-item>
+      </ion-list>
+      <button ion-button full (click)="addNewTask()" color="appgreen">Add task</button>
+      <!-- <ion-item>
+        <label>Status</label>
+        <select class="form-control" formControlName="status">
+          <option value="">Please select a status</option>
+          <option *ngFor="let stat of status" [value]="stat">{{stat}}
+          </option>
+        </select>
+      </ion-item> -->
 
-    <ion-item>
-      <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date"></ion-datetime>
-    </ion-item>
-
-    <button ion-button full (click)="addNewTask()">Full Button</button>
+      <!-- <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb"></ion-datetime>
+        <ion-input formControlName="date" (ionFocus)="showDateTimePicker($event)" showWhen="ios,android,windows"></ion-input>
+      </ion-item> -->
+      
   </form>
 </ion-content>

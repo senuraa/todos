@@ -1,19 +1,16 @@
 page-home {
-    
-    .notasks-container{
-        width:100%;
-        max-width:450px;
-        margin:0 auto;
-        text-align:center;
-        height: 151px;
-        margin-top:-75.5px;
-        position:absolute;
-        top:50%;
-        div{
-            font-size:1.7rem;
+    .notasks-container {
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        width: 90%;
+        text-align: center;
+        div {
+            font-size: 1.7rem;
         }
-        button{
-            margin-top:3rem;
+        button {
+            margin-top: 3rem;
         }
     }
 }
