@@ -28,7 +28,6 @@ todayDate = new Date();
         }
     }
       this.upcommingTasks = this.response;
-      console.log(this.response)
     })
   }
 

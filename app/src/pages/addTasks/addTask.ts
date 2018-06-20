@@ -8,7 +8,8 @@ import { Contacts } from '@ionic-native/contacts';
 @IonicPage()
 @Component({
   selector: 'page-addTask',
-  templateUrl: 'addTask.html'
+  templateUrl: 'addTask.html',
+  providers: [Contacts]
 })
 export class AddTask {
   myform: FormGroup;
@@ -25,10 +26,12 @@ export class AddTask {
       date: new FormControl('')
     });
 
-    this.contacts.find(['name', 'phoneNumbers'], {filter: "", multiple: true})
-    .then(data => {
-      console.log(data);
-    });
+    // this.contacts.find(["*"], {filter: "", multiple: true, hasPhoneNumber:true})
+    // .then((data) => {
+    //   console.log("here" +data);
+    // }, err => {
+    //   console.log("here" +err);
+    // });
 
     this.datePicker.show({
       date: new Date(),
