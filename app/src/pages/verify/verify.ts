@@ -28,7 +28,7 @@ export class VerifyPage {
   verify(){
     this.authService.verifyToken(this.user).then((response)=>{
       console.log(response)
-      window.localStorage.setItem('phone_number', this.user.phone_number);
+      window.localStorage.setItem('todos_phone_number', this.user.phone_number);
       this.navCtrl.push('TabsPage');
     },(err)=>{
       console.log(err)

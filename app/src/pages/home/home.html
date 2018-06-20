@@ -1,12 +1,14 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+<ion-header >
+  <ion-navbar color="appbg">
+    <ion-title>Upcoming</ion-title>
+    <ion-buttons end showWhen="ios,iphone">
+      <button ion-button icon-only (click)="addNewTask()" color="apppink"><ion-icon name="ios-create-outline"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2 (click)="addNewTask()">New Task</h2>
-  <ion-list>
+  <ion-list *ngIf="upcommingTasks?.length>0">
     <ion-item-sliding *ngFor="let task of upcommingTasks; let idx = index">
       <ion-item>
         <h3>{{task.title}}</h3>
@@ -20,4 +22,13 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-fab right bottom *ngIf="upcommingTasks?.length>0">
+    <button ion-fab color="appbg" (click)="addNewTask()" showWhen="android,core,windows,mobileweb"><ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+  <div class="notasks-container" *ngIf="upcommingTasks?.length==0" padding>
+    <div>To start adding new tasks, tap the button below</div>
+
+    <button ion-button round (click)="addNewTask()" color="appgreen">Add a new task</button>
+  </div>
 </ion-content>

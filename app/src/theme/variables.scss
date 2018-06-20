@@ -15,12 +15,7 @@ $app-direction: ltr;
 @import "ionic.globals";
 
 
-// Shared Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass variables found in Ionic's source scss files.
-// To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
 // $font-family-base: 'MyFont';
 // $font-family-ios-base: 'MyFont';
 // $font-family-md-base: 'MyFont';
@@ -50,6 +45,14 @@ $colors: (
   apppink:#FB4372
 );
 
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+$tabs-tab-color-active:color($colors,secondary);
 
 // App iOS Variables
 // --------------------------------------------------
