@@ -91,4 +91,16 @@ export class TasksService {
     })
   }
 
+  updateTask(task) {
+    return new Promise((resolve, reject) => {
+      this.http.post(Constants.URL_UPDATETASK, task)
+        .subscribe(data => {
+          resolve(data)
+        },
+          err => {
+            reject(err);
+          })
+    })
+  }
+
 }

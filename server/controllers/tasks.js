@@ -169,3 +169,27 @@ exports.deleteTask = function (req, res) {
         }
     });
 }
+
+/**
+ * @param req
+ * @param res
+ */
+exports.updateTask = function (req, res) {
+    var title = req.body.title;
+    var description = req.body.description;
+    var status = req.body.status;
+    var assigned_user = req.body.assigned_to;
+
+    var due_UnformattedDate = req.body.date;
+    var due_date = new Date(due_UnformattedDate);
+
+    var project = req.body.project;
+    Task.findOneAndUpdate({ "_id": new ObjectId(id) }, { $set: { title: title, description: description, assigned_user: assigned_user, due_date: due_date, project: project, status : status } },{new: true}, function(err, doc){
+        if (err) {
+            console.log('Error Updating User', err);
+            res.status(500).json(err);
+        } else {
+            res.status(200).json(doc);
+        }
+    });
+}

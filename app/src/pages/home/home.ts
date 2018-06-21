@@ -58,7 +58,7 @@ todayDate = new Date();
             } else {
               this.response[i].condition = 'overdue'
             }
-            this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'short')
+            this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'mediumTime')
         }
           this.upcommingTasks = this.response;
         })
@@ -79,7 +79,7 @@ todayDate = new Date();
         } else {
           this.response[i].condition = 'overdue'
         }
-        this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'short')
+        this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'mediumTime')
     }
       this.upcommingTasks = this.response;
     })
