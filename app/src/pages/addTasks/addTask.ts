@@ -16,7 +16,7 @@ export class AddTask {
   myform: FormGroup;
   user: any;
   status = ["Pending", "Close", "Open"];
-
+  
   constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController,private datePipe:DatePipe, private contacts: Contacts) {
   
     this.myform = new FormGroup({
