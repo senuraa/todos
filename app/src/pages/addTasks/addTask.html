@@ -55,12 +55,11 @@
           <ion-option *ngFor="let stat of status" [value]="stat">{{stat}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item  showWhen="ios,android,windows" hideWhen="core,mobileweb">
         <ion-label>Date</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb" hideWhen="ios,android"></ion-datetime>
         <ion-input formControlName="date" (focus)="showDateTimePicker($event);$event.stopPropagation()" readonly="readonly" showWhen="ios,android" hideWhen="core,mobileweb"></ion-input>
       </ion-item>
-
       </ion-list>
       <button ion-button full (click)="addNewTask()" color="appgreen">Add task</button>
       <!-- <ion-item>

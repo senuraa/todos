@@ -39,7 +39,6 @@ export class AddTask {
   }
 
   showDateTimePicker(event) {
-    console.log(event)
     this.datePicker.show({
       date: new Date(),
       mode: 'datetime',
@@ -47,14 +46,15 @@ export class AddTask {
     }).then(
       date => {
         if (date != undefined) {
-          this.myform.value.date= this.datePipe.transform(date,'short');
-          event.target.value = this.myform.value.date;
+          event._native.nativeElement.value = this.datePipe.transform(date,'short')
+          this.myform.value.date = event._native.nativeElement.value;
         }
 
       },
       err => console.log('Error occurred while getting date: ', err)
     );
   }
+
   addNewTask() {
     let data = {
       formValues: this.myform.value,
