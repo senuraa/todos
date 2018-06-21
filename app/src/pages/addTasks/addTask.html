@@ -57,8 +57,8 @@
       </ion-item>
       <ion-item>
         <ion-label>Date</ion-label>
-        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb"></ion-datetime>
-        <ion-input formControlName="date" (ionFocus)="showDateTimePicker($event)" showWhen="ios,android,windows"></ion-input>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb" hideWhen="ios,android"></ion-datetime>
+        <ion-input formControlName="date" (focus)="showDateTimePicker($event);$event.stopPropagation()" readonly="readonly" showWhen="ios,android" hideWhen="core,mobileweb"></ion-input>
       </ion-item>
 
       </ion-list>

@@ -34,6 +34,7 @@ export class AddTask {
     // }, err => {
     //   console.log("here" +err);
     // });
+
     this.user = window.localStorage.getItem("todos_phone_number");
   }
 
@@ -46,7 +47,8 @@ export class AddTask {
     }).then(
       date => {
         if (date != undefined) {
-          event._native.nativeElement.value = this.datePipe.transform(date,'short')
+          this.myform.value.date= this.datePipe.transform(date,'short');
+          event.target.value = this.myform.value.date;
         }
 
       },
