@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,IonicPage,ModalController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
+import { DatePipe } from '@angular/common';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ upcommingTasks : any;
 user: any;
 response:any = [];
 todayDate = new Date();
-  constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController, private datePipe:DatePipe) {
     // this.user = window.localStorage.getItem("phone_number");
     // let data = {
     //   phone_number : this.user,
@@ -57,6 +58,7 @@ todayDate = new Date();
             } else {
               this.response[i].condition = 'overdue'
             }
+            this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'short')
         }
           this.upcommingTasks = this.response;
         })
@@ -77,6 +79,7 @@ todayDate = new Date();
         } else {
           this.response[i].condition = 'overdue'
         }
+        this.response[i].due_date = this.datePipe.transform(this.response[i].due_date,'short')
     }
       this.upcommingTasks = this.response;
     })
