@@ -11,10 +11,7 @@ export class UserTaskPage {
 allTasks: any;
 user:any = {};
   constructor(public navCtrl: NavController, private taskService: TasksService) {
-    this.user.phone_number = window.localStorage.getItem("phone_number");
-    this.taskService.taskOfuser(this.user).then((response) => {
-      this.allTasks = response;
-    })
+
   }
 
   deleteTask(index, task){
@@ -27,6 +24,14 @@ user:any = {};
       if(response){
         this.allTasks.splice(index,1);
       }
+    })
+  }
+
+  ionViewDidEnter(){
+    this.user.phone_number = window.localStorage.getItem("todos_phone_number");
+    this.taskService.taskOfuser(this.user).then((response) => {
+      this.allTasks = response;
+      console.log(response)
     })
   }
 
