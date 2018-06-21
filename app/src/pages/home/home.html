@@ -1,14 +1,23 @@
-<ion-header >
+<ion-header>
   <ion-navbar color="appbg">
     <ion-title>Upcoming</ion-title>
     <ion-buttons end showWhen="ios,iphone">
-      <button ion-button icon-only (click)="addNewTask()" color="apppink"><ion-icon name="ios-create-outline"></ion-icon></button>
+      <button ion-button icon-only (click)="addNewTask()" color="apppink">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="outer-content">
+
   <ion-list *ngIf="upcommingTasks?.length>0">
+    <ion-list-header>
+      <div class="today--header">
+        <span>Today </span>
+        <span>{{todayDate | date:'EE dd LLL'}}</span>
+      </div>
+    </ion-list-header>
     <ion-item-sliding *ngFor="let task of upcommingTasks; let idx = index">
       <ion-item>
         <h3>{{task.title}}</h3>
@@ -23,7 +32,8 @@
     </ion-item-sliding>
   </ion-list>
   <ion-fab right bottom *ngIf="upcommingTasks?.length>0">
-    <button ion-fab color="appbg" (click)="addNewTask()" showWhen="android,core,windows,mobileweb"><ion-icon name="add"></ion-icon>
+    <button ion-fab color="appbg" (click)="addNewTask()" showWhen="android,core,windows,mobileweb" hideWhen="ios">
+      <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
   <div class="notasks-container" *ngIf="upcommingTasks?.length==0" padding>

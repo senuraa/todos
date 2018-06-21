@@ -13,4 +13,15 @@ page-home {
             margin-top: 3rem;
         }
     }
+    .list-header-ios{
+        text-transform: none;
+    }
+    .list-header span:nth-child(1){
+        font-weight:700;
+        color:map-get($map: $colors, $key:appgreen )
+    }
+    .list-header span:nth-child(2){
+        font-weight:400;
+        color:#777777;
+    }
 }
