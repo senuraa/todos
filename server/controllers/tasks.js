@@ -28,7 +28,11 @@ exports.addtask = function (req, res) {
     task.set('status', status);
     task.set('assigned_user', assigned_user);
     task.set('created_date', created_date);
-    task.set('due_date', due_date);
+    if(due_UnformattedDate == ""){
+
+    }else{
+        task.set('due_date', due_date);
+    }
     task.set('project', project);
     console.log(task);
     task.save(function (err, doc) {
@@ -56,7 +60,7 @@ exports.addtask = function (req, res) {
  */
 exports.tasksofuser = function (req, res) {
     var phone_no = req.body.phone_number;
-    Task.find({ assigned_user: phone_no, status: { $ne: "Deleted" } }).exec(function (err, tasks) {
+    Task.find( {$and : [ {$or:[ {phone_number: phone_no}, {assigned_user: phone_no}]},{status: { $ne: "Deleted" }}] }).exec(function (err, tasks) {
         if (err) {
             console.log('Tasks retrieve error', err);
             res.status(500).json(err);
@@ -184,12 +188,24 @@ exports.updateTask = function (req, res) {
     var due_date = new Date(due_UnformattedDate);
 
     var project = req.body.project;
-    Task.findOneAndUpdate({ "_id": new ObjectId(id) }, { $set: { title: title, description: description, assigned_user: assigned_user, due_date: due_date, project: project, status : status } },{new: true}, function(err, doc){
-        if (err) {
-            console.log('Error Updating User', err);
-            res.status(500).json(err);
-        } else {
-            res.status(200).json(doc);
-        }
-    });
+
+    if(due_UnformattedDate == ""){
+        Task.findOneAndUpdate({ "_id": new ObjectId(id) }, { $set: { title: title, description: description, assigned_user: assigned_user, project: project, status : status } },{new: true}, function(err, doc){
+            if (err) {
+                console.log('Error Updating User', err);
+                res.status(500).json(err);
+            } else {
+                res.status(200).json(doc);
+            }
+        });
+    }else{
+        Task.findOneAndUpdate({ "_id": new ObjectId(id) }, { $set: { title: title, description: description, assigned_user: assigned_user, due_date: due_date, project: project, status : status } },{new: true}, function(err, doc){
+            if (err) {
+                console.log('Error Updating User', err);
+                res.status(500).json(err);
+            } else {
+                res.status(200).json(doc);
+            }
+        });
+    }
 }
