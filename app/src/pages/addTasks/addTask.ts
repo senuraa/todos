@@ -50,12 +50,12 @@ export class AddTask {
     this.datePicker.show({
       date: new Date(),
       mode: 'datetime',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT
     }).then(
       date => {
         if (date != undefined) {
-          event._native.nativeElement.value = this.datePipe.transform(date, 'short')
-          this.myform.value.date = event._native.nativeElement.value;
+          event.target.value = this.datePipe.transform(date,'short')
+          this.myform.value.date = event.target.value;
         }
 
       },
