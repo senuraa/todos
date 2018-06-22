@@ -209,3 +209,11 @@ exports.updateTask = function (req, res) {
         });
     }
 }
+
+/**
+ * @param req
+ * @param res
+ */
+exports.Test = function (req, res) {
+    res.status(200).json({tasks: "test"})
+}

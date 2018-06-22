@@ -106,6 +106,7 @@ router.route('/task/tasksOfUser').post(tasks.tasksofuser);
 router.route('/task/upcomingTasks').post(tasks.upcomingtasks);
 router.route('/task/deleteTask').post(tasks.deleteTask);
 router.route('/task/updateTask').post(tasks.updateTask);
+router.route('/test').get(tasks.Test);
 
 /**
  * Account Security Authentication API
