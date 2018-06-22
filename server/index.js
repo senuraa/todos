@@ -116,7 +116,7 @@ router.route('/accountsecurity/voice').post(auth.voice);
 router.route('/accountsecurity/verify').post(auth.verify);
 router.route('/accountsecurity/onetouchstatus').post(auth.checkonetouchstatus);
 router.route('/accountsecurity/onetouch').post(auth.createonetouch);
-
+// router.route('/test').get(tasks.test)
 /**
  * User Activities
  */

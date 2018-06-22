@@ -20,16 +20,30 @@
     </ion-list-header>
     <ion-item-sliding *ngFor="let task of upcommingTasks; let idx = index">
       <ion-item>
-        <h3>{{task.title}}</h3>
-        <p>{{task.description}}</p>
-        <p>{{task.project}}</p>
-        <p>{{task.due_date}}</p>
-        <p *ngIf="task.condition == 'overdue'">{{task.condition}}</p>
+        <h2>{{task.title}}</h2>
+        <h3>{{task.description}}</h3>
+        <p class='item-bottom-container'>
+          <span *ngIf="task.due_date">
+            <ion-icon name="alarm"></ion-icon> {{task.due_date | date:'hh:mm aa'}}&nbsp; &nbsp;
+          </span>
+          <span>
+            <ion-badge color="appgreen">WORK</ion-badge>&nbsp; &nbsp;
+            <ion-badge color="apppink" *ngIf="task.condition=='overdue'">{{task.condition}}</ion-badge>
+          </span>
+
+        </p>
+
+        <!-- <ion-chip>
+          <ion-icon name="alarm"></ion-icon>
+          <ion-label>{{task.due_date | date:'hh:mm aa'}}</ion-label>
+        </ion-chip> -->
       </ion-item>
-      <ion-item-options side="right">
-        <button ion-button (click)="changeStatus(idx,task)">Completed</button>
+
+      <ion-item-options side="left">
+        <button ion-button (click)="changeStatus(idx,task)" color="appgreen">Done</button>
       </ion-item-options>
     </ion-item-sliding>
+
   </ion-list>
   <ion-fab right bottom *ngIf="upcommingTasks?.length>0">
     <button ion-fab color="appbg" (click)="addNewTask()" showWhen="android,core,windows,mobileweb" hideWhen="ios">
