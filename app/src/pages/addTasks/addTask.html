@@ -11,6 +11,25 @@
 
 <ion-content class="outer-content">
   <form novalidate [formGroup]="myform">
+
+      <ion-item>
+          <ion-searchbar formControlName="assigned_to" [showCancelButton]="shouldShowCancel" placeholder="Assigned User" (ionInput)="onInput($event)"></ion-searchbar>
+          <ion-item class="loadList" *ngFor="let conFil of contactListFiltered" (click)="fillBox(conFil)">
+            <ion-label>
+              <b>{{conFil.name}}</b>
+            </ion-label>
+        </ion-item>
+
+        <!-- <ion-label floating>Assigned To</ion-label>
+        <ion-input type="text" list="list" id="list" class="form-control" formControlName="assigned_to"></ion-input>
+        <datalist id="list">
+          <option value="new">new</option>
+          <option value="new">new</option>
+          <option value="new">new</option>
+          <option value="new">new</option>
+        </datalist> -->
+      </ion-item>
+
     <ion-list>
       <ion-list-header>
         Details
@@ -39,16 +58,7 @@
         </ion-label>
         <ion-input type="text" class="form-control" formControlName="project"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label floating>Assigned To</ion-label>
-        <ion-input type="text" class="form-control" formControlName="assigned_to"></ion-input>
-        <datalist id="list">
-          <option value="new">new</option>
-          <option value="new">new</option>
-          <option value="new">new</option>
-          <option value="new">new</option>
-        </datalist>
-      </ion-item>
+
       <ion-item>
         <ion-label>Task Status</ion-label>
         <ion-select formControlName="status" formControlName="status" interface="popover">
