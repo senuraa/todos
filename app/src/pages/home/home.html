@@ -22,10 +22,17 @@
       <ion-item>
         <h2>{{task.title}}</h2>
         <h3>{{task.description}}</h3>
-        <p>
+        <p class='item-bottom-container'>
+          <span *ngIf="task.due_date">
+            <ion-icon name="alarm"></ion-icon> {{task.due_date | date:'hh:mm aa'}}&nbsp; &nbsp;
+          </span>
+          <span>
+            <ion-badge color="appgreen">WORK</ion-badge>&nbsp; &nbsp;
+            <ion-badge color="apppink" *ngIf="task.condition=='overdue'">{{task.condition}}</ion-badge>
+          </span>
 
-          <ion-icon name="alarm" *ngIf="task.due_date"></ion-icon> {{task.due_date | date:'hh:mm aa'}}
         </p>
+
         <!-- <ion-chip>
           <ion-icon name="alarm"></ion-icon>
           <ion-label>{{task.due_date | date:'hh:mm aa'}}</ion-label>

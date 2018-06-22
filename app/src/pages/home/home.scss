@@ -1,4 +1,9 @@
 page-home {
+    ion-badge{
+        padding:5px 11px !important;
+        font-size:1.1rem !important;
+        text-transform: uppercase;
+    }
     .notasks-container {
         transform: translate(-50%, -50%);
         position: absolute;
@@ -24,4 +29,8 @@ page-home {
         font-weight:400;
         color:#777777;
     }
+    // .item-bottom-container{
+    //     display:flex;
+    //     justify-content: space-between;
+    // }
 }

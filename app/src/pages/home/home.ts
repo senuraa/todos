@@ -53,7 +53,7 @@ export class HomePage {
         this.response = resp;
         for (var i = 0; i < this.response.length; i++) {
           if (this.todayDate < new Date(this.response[i].due_date)) {
-            this.response[i].condition = 'upcoming'
+            //this.response[i].condition = 'upcoming'
           } else {
             this.response[i].condition = 'overdue'
           }
@@ -75,7 +75,7 @@ export class HomePage {
       for (var i = 0; i < this.response.length; i++) {
         if (this.response[i].due_date != undefined) {
           if (this.todayDate < new Date(this.response[i].due_date)) {
-            this.response[i].condition = 'upcoming'
+            //this.response[i].condition = 'upcoming'
           } else {
             this.response[i].condition = 'overdue'
           }
