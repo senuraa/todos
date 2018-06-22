@@ -28,12 +28,12 @@ export class AddTask {
       date: new FormControl('')
     });
 
-    // this.contacts.find(["*"], {filter: "", multiple: true, hasPhoneNumber:true})
-    // .then((data) => {
-    //   console.log("here" +data);
-    // }, err => {
-    //   console.log("here" +err);
-    // });
+    this.contacts.find(["*"], {filter: "", multiple: true, hasPhoneNumber:true})
+    .then((data) => {
+      console.log("here" +JSON.stringify(data));
+    }, err => {
+      console.log("here" +err);
+    });
 
     this.user = window.localStorage.getItem("todos_phone_number");
   }

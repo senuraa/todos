@@ -20,11 +20,11 @@
     </ion-list-header>
     <ion-item-sliding *ngFor="let task of upcommingTasks; let idx = index">
       <ion-item>
-        <h3>{{task.title}}</h3>
-        <p>{{task.description}}</p>
-        <p>{{task.project}}</p>
-        <p>{{task.due_date}}</p>
-        <p *ngIf="task.condition == 'overdue'">{{task.condition}}</p>
+        <!-- <h3>{{task.title}}</h3> -->
+        {{task.description}}
+        <!-- <p>{{task.project}}</p>
+        <p>{{task.due_date}}</p> -->
+        <!-- <p *ngIf="task.condition == 'overdue'">{{task.condition}}</p> -->
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="changeStatus(idx,task)">Completed</button>
