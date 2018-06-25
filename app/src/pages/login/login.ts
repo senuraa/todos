@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryPickerService, ICountry } from 'ngx-country-picker';
 import { AuthService } from '../../providers/auth.service'
@@ -22,7 +22,7 @@ export class LoginPage {
   subTitle: string = 'Create a Todos account and add your team members'
   country: any;
   countries: ICountry[] = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public countryPickerService: CountryPickerService, public authService: AuthService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public countryPickerService: CountryPickerService, public authService: AuthService, public loadingCtrl:LoadingController) {
     this.countryPickerService.getCountries().subscribe((countries: ICountry[]) => //get all country
       this.countries = countries);  // store it in countries
     this.loginForm = this.formBuilder.group({
@@ -35,12 +35,18 @@ export class LoginPage {
 
   login(user) {
     console.log(user)
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
     //this.navCtrl.push('VerifyPage', user)
     this.authService.receiveSMS(user).then((response)=>{
       console.log(response)
       this.navCtrl.push('VerifyPage', user)
+      loading.dismiss();
     },(err)=>{
       console.log(err)
+      loading.dismiss();
     }
   )
     

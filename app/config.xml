@@ -4,6 +4,8 @@
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content original-src="index.html" src="http://192.168.8.123:8100" />
+    <content original-src="index.html" src="http://192.168.8.124:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

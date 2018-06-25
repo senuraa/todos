@@ -102,7 +102,7 @@ export class AddTask {
     if(conFil.phone.length > 1){
       this.showRadioAlert(conFil.phone);
     }else if(conFil.phone.length == 1){
-      this.myform.controls["assigned_to"].setValue(conFil.phone[0].value)
+      this.myform.controls["assigned_to"].setValue(conFil.phone[0].value.replace(/[^0-9]/ig, ''))
     }else{
       console.log("no contacts ")
     }
