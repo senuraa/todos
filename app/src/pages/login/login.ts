@@ -28,7 +28,7 @@ export class LoginPage {
     this.loginForm = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      phone_number: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+      phone_number: ['', Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])],
       country_code: ['94']
     })
   }
