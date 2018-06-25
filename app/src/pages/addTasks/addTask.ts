@@ -44,6 +44,7 @@ export class AddTask {
       });
 
     this.user = window.localStorage.getItem("todos_phone_number");
+    console.log(this.user)
   }
 
   showDateTimePicker(event) {

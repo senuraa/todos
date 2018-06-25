@@ -13,7 +13,7 @@
   <form novalidate [formGroup]="myform">
 
       <ion-item>
-          <ion-searchbar formControlName="assigned_to" [showCancelButton]="shouldShowCancel" placeholder="Assigned User" (ionInput)="onInput($event)"></ion-searchbar>
+          <ion-searchbar formControlName="assigned_to" [showCancelButton]="shouldShowCancel" placeholder="Assigned User (947********)" (ionInput)="onInput($event)"></ion-searchbar>
           <ion-item class="loadList" *ngFor="let conFil of contactListFiltered" (click)="fillBox(conFil)">
             <ion-label>
               <b>{{conFil.name}}</b>
