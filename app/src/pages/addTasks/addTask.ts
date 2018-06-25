@@ -71,7 +71,6 @@ export class AddTask {
       phone_number: this.user
     }
     this.taskService.addTasks(data).then((response) => {
-      console.log(response);
       if (response) {
         this.viewCtrl.dismiss();
       } else {
