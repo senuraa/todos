@@ -29,7 +29,7 @@ export class VerifyPage {
     this.authService.verifyToken(this.user).then((response)=>{
       console.log(response)
       window.localStorage.setItem('todos_phone_number', this.user.country_code+''+this.user.phone_number);
-      this.navCtrl.push('TabsPage');
+      this.navCtrl.setRoot('TabsPage');
     },(err)=>{
       console.log(err)
     })
