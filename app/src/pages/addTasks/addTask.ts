@@ -64,7 +64,7 @@ export class AddTask {
   }
 
   addNewTask() {
-
+    this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g,'').replace(/-/g,'').replace(/\(/g,"").replace(/\)/g,"").replace(/\+/g,"")
     console.log(JSON.stringify(this.myform.value))
     let data = {
       formValues: this.myform.value,

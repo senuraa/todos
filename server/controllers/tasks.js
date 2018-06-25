@@ -15,8 +15,7 @@ exports.addtask = function (req, res) {
     var title = req.body.formValues.title;
     var description = req.body.formValues.description;
     var status = req.body.formValues.status;
-    var output = req.body.formValues.assigned_to.replace(/ /g,'').replace(/-/g,'').replace(/\(/g,"").replace(/\)/g,"");
-    var assigned_user = "94"+output;
+    var assigned_user = req.body.formValues.assigned_to;
     var created_date = new Date();
 
     var due_UnformattedDate = req.body.formValues.date;
