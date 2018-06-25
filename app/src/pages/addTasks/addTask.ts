@@ -44,6 +44,7 @@ export class AddTask {
       });
 
     this.user = window.localStorage.getItem("todos_phone_number");
+    console.log(this.user)
   }
 
   showDateTimePicker(event) {
@@ -64,14 +65,13 @@ export class AddTask {
   }
 
   addNewTask() {
-
+    this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g,'').replace(/-/g,'').replace(/\(/g,"").replace(/\)/g,"").replace(/\+/g,"")
     console.log(JSON.stringify(this.myform.value))
     let data = {
       formValues: this.myform.value,
       phone_number: this.user
     }
     this.taskService.addTasks(data).then((response) => {
-      console.log(response);
       if (response) {
         this.viewCtrl.dismiss();
       } else {
@@ -102,7 +102,7 @@ export class AddTask {
     if(conFil.phone.length > 1){
       this.showRadioAlert(conFil.phone);
     }else if(conFil.phone.length == 1){
-      this.myform.controls["assigned_to"].setValue(conFil.phone[0].value.replace(/[^A-Z0-9]/ig, ''))
+      this.myform.controls["assigned_to"].setValue(conFil.phone[0].value.replace(/[^0-9]/ig, ''))
     }else{
       console.log("no contacts ")
     }

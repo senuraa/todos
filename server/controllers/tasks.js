@@ -34,7 +34,6 @@ exports.addtask = function (req, res) {
         task.set('due_date', due_date);
     }
     task.set('project', project);
-    console.log(task);
     task.save(function (err, doc) {
         if (err) {
             console.log('Error Creating Task', err);

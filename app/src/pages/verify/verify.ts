@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth.service';
 /**
  * Generated class for the VerifyPage page.
@@ -15,7 +15,7 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class VerifyPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService:AuthService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService:AuthService, public loadingCtrl:LoadingController) {
 
   }
   user: any = {
@@ -26,11 +26,17 @@ export class VerifyPage {
     token: ''
   }
   verify(){
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
     this.authService.verifyToken(this.user).then((response)=>{
       console.log(response)
       window.localStorage.setItem('todos_phone_number', this.user.country_code+''+this.user.phone_number);
+      loading.dismiss();
       this.navCtrl.setRoot('TabsPage');
     },(err)=>{
+      loading.dismiss();
       console.log(err)
     })
   }
