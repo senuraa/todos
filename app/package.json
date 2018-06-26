@@ -63,6 +63,7 @@
       "cordova-plugin-contacts": {}
     },
     "platforms": [
+      "android",
       "ios"
     ]
   }
