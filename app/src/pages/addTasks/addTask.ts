@@ -102,8 +102,11 @@ console.log(this.user)
     if (searchTerm.target.value && searchTerm.target.value.trim() !== '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
         console.log('onInput - '+JSON.stringify(item))
-        if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
-          this.contactListFiltered.push(item);
+        if(item.name != undefined){
+          
+          if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
+            this.contactListFiltered.push(item);
+          }
         }
       });
     }
