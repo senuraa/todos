@@ -89,19 +89,12 @@
     <allow-navigation href="http://192.168.1.25:8100" />
     <allow-navigation href="http://192.168.1.17:8100" />
     <allow-navigation href="http://192.168.1.17:8101" />
-<<<<<<< HEAD
     <allow-navigation href="http://192.168.8.124:8100" />
     <allow-navigation href="http://192.168.1.6:8101" />
     <allow-navigation href="http://192.168.1.6:8100" />
     <allow-navigation href="http://192.168.43.109:8100" />
     <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
-        <string>We want your location! Best regards NSA</string>
+        <string>This app requires contacts access to function properly.</string>
     </edit-config>
-=======
-    <allow-navigation href="http://192.168.8.123:8101" />
-    <allow-navigation href="http://192.168.8.123:8100" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <engine name="android" spec="7.0.0" />
->>>>>>> bd96ebb978e3c8f29f425d4463bd07cd2b5dd94f
     <engine name="ios" spec="4.5.4" />
 </widget>
