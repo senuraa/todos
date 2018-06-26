@@ -31,22 +31,28 @@ export class AddTask {
       date: new FormControl('')
     });
 
-    this.contacts.find(['displayName', 'phoneNumbers'], { filter: "", multiple: true, hasPhoneNumber: true })
-      .then((data) => {
-        for (var i = 0; i < data.length; i++) {
-          this.contactList.push({
-            name : data[i]['_objectInstance'].name.givenName,
-            phone : data[i]['_objectInstance'].phoneNumbers
-          })
-        }
-      }, err => {
-        console.log("contact " + err);
-      });
 
-    this.user = window.localStorage.getItem("todos_phone_number");
-    console.log(this.user)
   }
+ionViewDidLoad(){
+  
+  this.contacts.find(['displayName', 'phoneNumbers'], { filter: "", multiple: true, hasPhoneNumber: true })
+  .then((data) => {
+    //console.log("contact_data - "+data)
+    for (var i = 0; i < data.length; i++) {
+      // console.log("contact_data - "+JSON.stringify(data[i]))
+      this.contactList.push({
+        
+        name : data[i]['_objectInstance'].name.givenName,
+        phone : data[i]['_objectInstance'].phoneNumbers
+      })
+    }
+  }, err => {
+    console.log("contact " + err);
+  });
 
+this.user = window.localStorage.getItem("todos_phone_number");
+console.log(this.user)
+}
   showDateTimePicker(event) {
     this.datePicker.show({
       date: new Date(),
@@ -87,11 +93,16 @@ export class AddTask {
     })
   }
 
-  onInput(searchTerm) {
+  onInput(searchTerm:any) {
     this.contactListFiltered = [];
-    if (searchTerm.target.value && searchTerm.target.value.trim() != '') {
+    console.log('onInput - '+JSON.stringify(this.contactList))
+
+    //console.log('searchTerm - '+JSON.stringify(searchTerm,['message','arguments','type','name']))
+
+    if (searchTerm.target.value && searchTerm.target.value.trim() !== '') {
       this.contactList.filter((item) => {
-        if (item.name.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1) {
+        //console.log('onInput - '+JSON.stringify(item))
+        if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
           this.contactListFiltered.push(item);
         }
       });

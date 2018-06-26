@@ -1,13 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.virtusa.todos" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>todos</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-<<<<<<< HEAD
-    <content original-src="index.html" src="http://192.168.8.124:8100" />
-=======
-    <content src="index.html" />
->>>>>>> 83137a4f0bc728fc9f6298e29916fd7ad6b587e4
+    <content original-src="index.html" src="http://192.168.1.6:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -87,11 +83,14 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <allow-navigation href="http://192.168.1.25:8100" />
-    <engine name="ios" spec="~4.5.4" />
     <allow-navigation href="http://192.168.1.17:8100" />
     <allow-navigation href="http://192.168.1.17:8101" />
     <allow-navigation href="http://192.168.8.124:8100" />
     <allow-navigation href="http://192.168.1.6:8101" />
     <allow-navigation href="http://192.168.1.6:8100" />
+    <allow-navigation href="http://192.168.43.109:8100" />
+    <edit-config file="*-Info.plist" mode="merge" target="NSContactsUsageDescription">
+        <string>We want your location! Best regards NSA</string>
+    </edit-config>
     <engine name="ios" spec="4.5.4" />
 </widget>
