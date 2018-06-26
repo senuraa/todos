@@ -95,13 +95,13 @@ console.log(this.user)
 
   onInput(searchTerm:any) {
     this.contactListFiltered = [];
-    console.log('onInput - '+JSON.stringify(this.contactList))
+    //console.log('onInput - '+JSON.stringify(this.contactList))
 
     //console.log('searchTerm - '+JSON.stringify(searchTerm,['message','arguments','type','name']))
-
+    console.log('Searchterm val = '+searchTerm.target.value)
     if (searchTerm.target.value && searchTerm.target.value.trim() !== '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
-        //console.log('onInput - '+JSON.stringify(item))
+        console.log('onInput - '+JSON.stringify(item))
         if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
           this.contactListFiltered.push(item);
         }
