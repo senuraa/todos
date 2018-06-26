@@ -89,7 +89,7 @@ export class AddTask {
 
   onInput(searchTerm) {
     this.contactListFiltered = [];
-    if (searchTerm.target.value && searchTerm.target.value.trim() != '') {
+    if (searchTerm.target.value && searchTerm.target.value.trim() != '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
         if (item.name.toLowerCase().indexOf(searchTerm.target.value.toLowerCase()) > -1) {
           this.contactListFiltered.push(item);
