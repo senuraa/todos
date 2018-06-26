@@ -99,7 +99,7 @@ console.log(this.user)
 
     //console.log('searchTerm - '+JSON.stringify(searchTerm,['message','arguments','type','name']))
 
-    if (searchTerm.target.value && searchTerm.target.value.trim() !== '') {
+    if (searchTerm.target.value && searchTerm.target.value.trim() !== '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
         //console.log('onInput - '+JSON.stringify(item))
         if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {

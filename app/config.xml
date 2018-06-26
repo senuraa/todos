@@ -3,11 +3,7 @@
     <name>todos</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-<<<<<<< HEAD
     <content original-src="index.html" src="http://192.168.1.6:8100" />
-=======
-    <content original-src="index.html" src="http://192.168.8.123:8100" />
->>>>>>> bd96ebb978e3c8f29f425d4463bd07cd2b5dd94f
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
