@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
-import { oneSignalAppId, sender_id } from '../config';
 
 
 @Component({
@@ -12,47 +10,58 @@ import { oneSignalAppId, sender_id } from '../config';
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private oneSignal: OneSignal) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleBlackTranslucent();
       splashScreen.hide();
-      this.oneSignal.getIds().then((id) => {
-        console.log(JSON.stringify(id));
-      });
-
-      if (platform.is('ios') || platform.is('android')) {
-
-        this.oneSignal.startInit(oneSignalAppId, sender_id);
-        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
-        this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
-        this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
-        this.oneSignal.endInit();
-
-        this.oneSignal.startInit('eb676204-ef40-473a-b709-c3393b72cffa', '659911733986');
-        this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-        this.oneSignal.handleNotificationReceived().subscribe(() => {
-          // do something when notification is received
-        });
-        this.oneSignal.handleNotificationOpened().subscribe(() => {
-          // do something when a notification is opened
-        });
-        this.oneSignal.endInit();
-      }
+    
 
       this.checkPreviousAuth();
+
+      var notificationOpenedCallback = function (jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        if (jsonData.notification.payload.additionalData != null) {
+          console.log("Here we access addtional data");
+          if (jsonData.notification.payload.additionalData.openURL != null) {
+            console.log("Here we access the openURL sent in the notification data");
+  
+          }
+        }
+      };
+      window["plugins"].OneSignal
+      .startInit("eb59933c-df94-4e1c-a3f1-121f8a44a75a","506992130936")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
+     
+      // if(plt.is('cordova')){
+      //   this.oneSignal.startInit("eb59933c-df94-4e1c-a3f1-121f8a44a75a","506992130936")
+      //   //.iOSSettings() // only needed if added Optional OneSignal code for iOS above
+      //   this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert)
+      //   this.oneSignal.handleNotificationOpened().subscribe(()=>{
+  
+      //   })
+      //   this.oneSignal.endInit();
+      //   this.oneSignal.getIds().then((ids)=>{
+      //     console.log('ids - '+JSON.stringify(ids))
+      //   })
+      // }
     });
+   
+
+      
+    // oneSignal.getIds().then((id)=>{
+    //   this.authService.addPlayerId({phone_number:window.localStorage.getItem('todos_phone_number'),player_id:id}).then((response)=>{
+    //     console.log(response)
+    //   },
+    //   (err)=>{
+    //     console.log(err)
+    //   }
+    // )
+    // })
   }
 
-
-  private onPushReceived(payload: OSNotificationPayload) {
-    alert('Push recevied:' + payload.body);
-  }
-
-  private onPushOpened(payload: OSNotificationPayload) {
-    alert('Push opened: ' + payload.body);
-  }
 
   checkPreviousAuth(): void {
     if ((window.localStorage.getItem('todos_phone_number') === "undefined" || window.localStorage.getItem('todos_phone_number') === null) &&

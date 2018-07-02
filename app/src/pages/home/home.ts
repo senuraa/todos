@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, ModalController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
+import { AuthService } from '../../providers/auth.service';
 
 
 @IonicPage()
@@ -13,8 +14,22 @@ export class HomePage {
   user: any;
   response: any = [];
   todayDate = new Date();
-  constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public taskService: TasksService, public modalCtrl: ModalController, public authService:AuthService) {
+    window["plugins"].OneSignal
+    .getIds((id)=>{
+      
+      this.authService.addPlayerId({
+        phone_number:window.localStorage.getItem('todos_phone_number'),
+        player_id:id.userId
+      }).then((res)=>{
+        console.log(res)
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
 
+    })
   }
 
   changeStatus(index, task) {

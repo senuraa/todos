@@ -12,7 +12,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { DatePipe } from '@angular/common';
 import { CountryPickerModule } from 'ngx-country-picker'
 import { Contacts} from '@ionic-native/contacts';
-import { OneSignal } from '@ionic-native/onesignal';
+import { OneSignal } from '@ionic-native/onesignal'
 
 
 @NgModule({
@@ -34,8 +34,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CountryPickerModule.forRoot()
-  ],
+    CountryPickerModule.forRoot(),
+    ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp
