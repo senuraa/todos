@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, ModalController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
 
+
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -51,6 +52,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+
     this.user = window.localStorage.getItem("todos_phone_number");
     let data = {
       phone_number: this.user,
