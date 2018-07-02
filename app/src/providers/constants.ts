@@ -1,9 +1,11 @@
 export class Constants {
-  public static URL_SERVICE_ENDPOINT: string = 'http://54.169.167.51:1337/api/';
+  //public static URL_SERVICE_ENDPOINT: string = 'http://54.169.167.51:1337/api/';
  //public static URL_SERVICE_ENDPOINT: string = 'http://localhost:1337/api/';
-  //public static URL_SERVICE_ENDPOINT: string = 'http://192.168.8.124:1337/api/';
+  public static URL_SERVICE_ENDPOINT: string = 'http://192.168.1.6:1337/api/';
   public static URL_REGISTER: string = Constants.URL_SERVICE_ENDPOINT + 'accountsecurity/start';
   public static URL_VERIFY: string = Constants.URL_SERVICE_ENDPOINT + 'accountsecurity/verifyPhoneToken';
+  public static URL_ADD_PLAYERID: string = Constants.URL_SERVICE_ENDPOINT+'users/addplayerid';
+  public static URL_GET_PLAYERID:string = Constants.URL_SERVICE_ENDPOINT+'users/getUserDetails';
   public static URL_ADDTASK: string = Constants.URL_SERVICE_ENDPOINT + 'task/addTask';
   public static URL_UPCOMMINGTASK: string = Constants.URL_SERVICE_ENDPOINT + 'task/upcomingTasks';
   public static URL_TASKOFUSER: string = Constants.URL_SERVICE_ENDPOINT + 'task/tasksOfUser';

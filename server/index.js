@@ -124,8 +124,8 @@ router.route('/users/sendSMS').post(users.sendSMS);
 router.route('/users/allusers').post(users.allUsers);
 router.route('/accountsecurity/start').post(users.requestPhoneVerification);
 router.route('/accountsecurity/verifyPhoneToken').post(users.verifyPhoneToken);
-
-
+router.route('/users/addplayerid').post(users.addPlayerId);
+router.route('/users/getUserDetails').post(users.getUserDetails);
 /**
  * Require user to be logged in and authenticated with 2FA
  *

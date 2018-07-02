@@ -27,7 +27,18 @@ export class AuthService {
         )
     })
   }
-
+  addPlayerId(playerData){
+    return new Promise((resolve,reject)=>{
+      this.http.post(Constants.URL_ADD_PLAYERID,playerData)
+        .subscribe(data=>{
+          resolve(data)
+        },
+        err =>{
+          reject(err);
+        }
+      )
+    })
+  }
   verifyToken(userData) {
     return new Promise((resolve, reject) => {
       this.http.post(Constants.URL_VERIFY, userData)
@@ -40,6 +51,17 @@ export class AuthService {
         )
     })
   }
-
+  getPlayerId(userData){
+    return new Promise((resolve,reject)=>{
+      this.http.post(Constants.URL_GET_PLAYERID,userData)
+        .subscribe(data=>{
+          resolve(data)
+        },
+        err=>{
+          reject(err);
+        }
+      )
+    })
+  }
   
 }

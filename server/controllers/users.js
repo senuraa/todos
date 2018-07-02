@@ -139,3 +139,52 @@ exports.allUsers = function (req, res) {
     });
 };
 
+/**
+ * Add player ids for OneSignal notifications
+ *
+ * @param req
+ * @param res
+ */
+
+ exports.addPlayerId = function(req,res){
+     var phone_number = req.body.phone_number;
+     var player_id = req.body.player_id;
+    console.log(req.body)
+     User.findOne({phone_number:phone_number}).exec(function (err,usr){
+         if(!usr.player_ids.includes(player_id)){
+            User.update(
+                {phone_number:phone_number},
+                {$push:{player_ids:player_id}}
+            ).exec(function(err,usr){
+                if(err){
+                    res.status(500).json({'error':'error adding player id'})
+                }else{
+                    res.status(200).json(usr);
+                    console.log(usr)
+                }
+            })
+            // User.player_ids.push(player_id)
+            // User.save(done)
+         }else{
+             res.status(200).json({'message':'player id exists'})
+         }
+     })
+ }
+
+ /**
+ * Get user details
+ *
+ * @param req
+ * @param res
+ */
+exports.getUserDetails = function(req,res){
+    var phone_number = req.body.phone_number;
+
+    User.findOne({phone_number:phone_number}).exec(function(err,usr){
+        if(!err){
+            res.status(200).json(usr)
+        }else{
+            res.status(500).json(err)
+        }
+    })
+}

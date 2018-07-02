@@ -6,6 +6,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { DatePipe } from '@angular/common';
 import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
 import { AlertController } from 'ionic-angular';
+import { AuthService } from '../../providers/auth.service';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,7 @@ export class AddTask {
   contactList: { name: any, phone: any }[] = [];
   contactListFiltered: any;
 
-  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController, private datePipe: DatePipe, private contacts: Contacts, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController, private datePipe: DatePipe, private contacts: Contacts, private alertCtrl: AlertController, public authService: AuthService) {
 
     this.myform = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -33,26 +34,26 @@ export class AddTask {
 
 
   }
-ionViewDidLoad(){
-  
-  this.contacts.find(['displayName', 'phoneNumbers'], { filter: "", multiple: true, hasPhoneNumber: true })
-  .then((data) => {
-    //console.log("contact_data - "+data)
-    for (var i = 0; i < data.length; i++) {
-      // console.log("contact_data - "+JSON.stringify(data[i]))
-      this.contactList.push({
-        
-        name : data[i]['_objectInstance'].name.givenName,
-        phone : data[i]['_objectInstance'].phoneNumbers
-      })
-    }
-  }, err => {
-    console.log("contact " + err);
-  });
+  ionViewDidLoad() {
 
-this.user = window.localStorage.getItem("todos_phone_number");
-console.log(this.user)
-}
+    this.contacts.find(['displayName', 'phoneNumbers'], { filter: "", multiple: true, hasPhoneNumber: true })
+      .then((data) => {
+        //console.log("contact_data - "+data)
+        for (var i = 0; i < data.length; i++) {
+          // console.log("contact_data - "+JSON.stringify(data[i]))
+          this.contactList.push({
+
+            name: data[i]['_objectInstance'].name.givenName,
+            phone: data[i]['_objectInstance'].phoneNumbers
+          })
+        }
+      }, err => {
+        console.log("contact " + err);
+      });
+
+    this.user = window.localStorage.getItem("todos_phone_number");
+    console.log(this.user)
+  }
   showDateTimePicker(event) {
     this.datePicker.show({
       date: new Date(),
@@ -61,7 +62,7 @@ console.log(this.user)
     }).then(
       date => {
         if (date != undefined) {
-          event.target.value = this.datePipe.transform(date,'short')
+          event.target.value = this.datePipe.transform(date, 'short')
           this.myform.value.date = event.target.value;
         }
 
@@ -71,7 +72,7 @@ console.log(this.user)
   }
 
   addNewTask() {
-    this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g,'').replace(/-/g,'').replace(/\(/g,"").replace(/\)/g,"").replace(/\+/g,"")
+    this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
     console.log(JSON.stringify(this.myform.value))
     let data = {
       formValues: this.myform.value,
@@ -79,6 +80,7 @@ console.log(this.user)
     }
     this.taskService.addTasks(data).then((response) => {
       if (response) {
+        this.sendNotification(this.myform.value.assigned_to, 'A new task has been added')
         this.viewCtrl.dismiss();
       } else {
         var smsData = {
@@ -93,17 +95,17 @@ console.log(this.user)
     })
   }
 
-  onInput(searchTerm:any) {
+  onInput(searchTerm: any) {
     this.contactListFiltered = [];
     //console.log('onInput - '+JSON.stringify(this.contactList))
 
     //console.log('searchTerm - '+JSON.stringify(searchTerm,['message','arguments','type','name']))
-    console.log('Searchterm val = '+searchTerm.target.value)
+    console.log('Searchterm val = ' + searchTerm.target.value)
     if (searchTerm.target.value && searchTerm.target.value.trim() !== '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
-        console.log('onInput - '+JSON.stringify(item))
-        if(item.name != undefined){
-          
+        console.log('onInput - ' + JSON.stringify(item))
+        if (item.name != undefined) {
+
           if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
             this.contactListFiltered.push(item);
           }
@@ -113,11 +115,11 @@ console.log(this.user)
   }
 
   fillBox(conFil) {
-    if(conFil.phone.length > 1){
+    if (conFil.phone.length > 1) {
       this.showRadioAlert(conFil.phone);
-    }else if(conFil.phone.length == 1){
+    } else if (conFil.phone.length == 1) {
       this.myform.controls["assigned_to"].setValue(conFil.phone[0].value.replace(/[^0-9]/ig, ''))
-    }else{
+    } else {
       console.log("no contacts ")
     }
     // this.myform.value.assigned_to = conFil;
@@ -131,7 +133,7 @@ console.log(this.user)
   showRadioAlert(phoneNumbers) {
     let alert = this.alertCtrl.create();
     alert.setTitle('Select Phone Number');
-    for(var i=0; i < phoneNumbers.length; i++){
+    for (var i = 0; i < phoneNumbers.length; i++) {
       alert.addInput({
         type: 'radio',
         label: phoneNumbers[i].value,
@@ -148,6 +150,41 @@ console.log(this.user)
     });
     alert.present();
   }
+  sendNotification(phone_number, msg) {
+    var resp;
+    var player_ids = [];
+    var userData = {
+      phone_number: phone_number
+    }
+    this.authService.getPlayerId(userData).then((response) => {
+      resp = response;
+      player_ids = resp.player_ids;
+      console.log('player_id ->' + JSON.stringify(player_ids))
+      var notificationObj = {
+        contents: { en: msg },
+        include_player_ids: player_ids
+      }
+      console.log('data' + JSON.stringify(notificationObj))
+      window["plugins"].OneSignal.postNotification(notificationObj,
+        function (successResponse) {
+          console.log("Notification Post Success:", successResponse);
+        },
+        function (failedResponse) {
+          console.log("Notification Post Failed: ", failedResponse);
+          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+        });
+    })
 
+    // console.log('data'+JSON.stringify(notificationObj))
+    // window["plugins"].OneSignal.postNotification(notificationObj,
+    //   function(successResponse) {
+    //     console.log("Notification Post Success:", successResponse);
+    //   },
+    //   function (failedResponse) {
+    //     console.log("Notification Post Failed: ", failedResponse);
+    //     alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+    //   }
+    // );
+  }
 
 }
