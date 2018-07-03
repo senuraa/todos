@@ -30,7 +30,11 @@ export class HomePage {
 
     })
   }
-
+  viewTask(task){
+    let taskModal = this.modalCtrl.create('CModal',task);
+    taskModal.present();
+    console.log(JSON.stringify(task))
+  }
   changeStatus(index, task) {
     task.status = "Close";
     this.taskService.changeStatus(task).then((res) => {

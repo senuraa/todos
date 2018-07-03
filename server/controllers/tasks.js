@@ -178,6 +178,7 @@ exports.deleteTask = function (req, res) {
  * @param res
  */
 exports.updateTask = function (req, res) {
+    var id = req.body.id;
     var title = req.body.title;
     var description = req.body.description;
     var status = req.body.status;

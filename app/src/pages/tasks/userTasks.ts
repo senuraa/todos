@@ -14,7 +14,7 @@ user:any = {};
   constructor(public navCtrl: NavController, private taskService: TasksService, private datePipe:DatePipe) {
 
   }
-
+  
   deleteTask(index, task){
     let data = {
       phone_number : this.user.phone_number,

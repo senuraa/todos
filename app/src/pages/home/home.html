@@ -19,7 +19,7 @@
       </div>
     </ion-list-header>
     <ion-item-sliding *ngFor="let task of upcommingTasks; let idx = index">
-      <ion-item>
+      <button ion-item (click)="viewTask(task)">
         <h2>{{task.title}}</h2>
         <h3>{{task.description}}</h3>
         <p class='item-bottom-container'>
@@ -37,7 +37,7 @@
           <ion-icon name="alarm"></ion-icon>
           <ion-label>{{task.due_date | date:'hh:mm aa'}}</ion-label>
         </ion-chip> -->
-      </ion-item>
+      </button>
 
       <ion-item-options side="left">
         <button ion-button (click)="changeStatus(idx,task)" color="appgreen">Done</button>
