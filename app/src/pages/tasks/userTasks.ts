@@ -22,7 +22,7 @@ unique:any;
   }
   showActionSheet(){
     let actionSheet = this.actionSheetCtrl.create({
-      title:'Filters',
+      title:'Sort by',
       buttons:[
         {
           text:'Due Date',
