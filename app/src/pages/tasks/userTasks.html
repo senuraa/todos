@@ -6,12 +6,16 @@
 
 <ion-content  class="outer-content">
   <ion-list>
-    <ion-item-sliding *ngFor="let task of allTasks; let idx = index">
+    <ion-list-header>
+      <button class="btn--sortby" (click)="showActionSheet()"><ion-icon name="funnel"></ion-icon> {{sortName}} <ion-icon name="arrow-dropdown"></ion-icon></button>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let task of allTasks | orderBy:order | filterBy:filter; let idx = index ">
       <ion-item>
         <h3>{{task.title}}</h3>
         <p>{{task.description}}</p>
         <p>{{task.project}}</p>
         <p>{{task.due_date}}</p>
+        <p *ngIf="task.assignedUsers">{{task.assignedUsers.firstname}} {{task.assignedUsers.lastname}}</p>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="deleteTask(idx,task)" color="apppink">Delete</button>

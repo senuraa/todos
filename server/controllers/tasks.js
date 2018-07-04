@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var userFile = require('./users');
-var Task = mongoose.model('Task');
 var User = mongoose.model('User');
+var Task = mongoose.model('Task');
+
 var qs = require('qs');
 var request = require('request');
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -59,7 +60,7 @@ exports.addtask = function (req, res) {
  */
 exports.tasksofuser = function (req, res) {
     var phone_no = req.body.phone_number;
-    Task.find( {$and : [ {$or:[ {phone_number: phone_no}, {assigned_user: phone_no}]},{status: { $ne: "Deleted" }}] }).exec(function (err, tasks) {
+    Task.find( {$and : [ {$or:[ {phone_number: phone_no}, {assigned_user: phone_no}]},{status: { $ne: "Deleted" }}] }).populate('assignedUsers').exec(function (err, tasks) {
         if (err) {
             console.log('Tasks retrieve error', err);
             res.status(500).json(err);

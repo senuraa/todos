@@ -1,3 +1,15 @@
 page-userTasks {
-
+    .btn--sortby{
+        font-size:1.6rem;
+        text-transform: uppercase;
+        color: #808080!important;
+        font-weight:700 !important;
+        background-color:transparent !important;
+        border:none;
+        letter-spacing: 2px;
+        padding:10px;
+    }
+    .btn--sortby.activated{
+        background-color: #F7F7F7 !important;
+    }
 }
