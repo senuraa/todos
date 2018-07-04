@@ -60,11 +60,14 @@ export class AddTask {
     this.datePicker.show({
       date: new Date(),
       mode: 'datetime',
+      todayText:'Today',
+      nowText:'Now',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT
     }).then(
       date => {
         if (date != undefined) {
-          event.target.value = this.datePipe.transform(date, 'short')
+          event.target.value = date;
+          //event.target.value = this.datePipe.transform(date, 'short')
           this.myform.value.date = event.target.value;
         }
 
@@ -74,6 +77,7 @@ export class AddTask {
   }
 
   addNewTask() {
+    //console.log('Date -'+this.myform.value.date)
     if(this.myform.value.self){
       this.myform.value.assigned_to=window.localStorage.getItem('todos_phone_number')
     }else{
@@ -87,12 +91,17 @@ export class AddTask {
     }
     this.taskService.addTasks(data).then((response) => {
       if (response) {
+        if(this.myform.value.assigned_to==window.localStorage.getItem('todos_phone_number')){
+          this.viewCtrl.dismiss();
+        }else{
         this.sendNotification(this.myform.value.assigned_to, 'A new task has been added')
         this.viewCtrl.dismiss();
+        }
+        
       } else {
         var smsData = {
           phoneNumber: this.myform.value.assigned_to,
-          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. http://todos.com'
+          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. https://speedx-senuraa.c9users.io/todos.apk'
         }
         this.taskService.sendTaskSMS(smsData).then((res) => {
           this.viewCtrl.dismiss();
