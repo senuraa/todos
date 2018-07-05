@@ -13,4 +13,5 @@ export class Constants {
   public static URL_SENDSMS: string = Constants.URL_SERVICE_ENDPOINT + 'users/sendSMS';
   public static URL_DELETETASK: string = Constants.URL_SERVICE_ENDPOINT + 'task/deleteTask';
   public static URL_UPDATETASK: string = Constants.URL_SERVICE_ENDPOINT + 'task/updateTask';
+  public static URL_GET_ONE_TASK: string = Constants.URL_SERVICE_ENDPOINT + 'task/getOneTask';
 }

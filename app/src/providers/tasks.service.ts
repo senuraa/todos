@@ -14,7 +14,21 @@ export class TasksService {
   constructor(public http: HttpClient) {
 
   }
-
+  getOneTask(ids){
+    var reqid = {
+      id:ids
+    }
+    return new Promise((resolve,reject)=>{
+      this.http.post(Constants.URL_GET_ONE_TASK,reqid)
+        .subscribe(data=>{
+          resolve(data)
+        },
+        err =>{
+          reject(err)
+        }
+      )
+    })
+  }
   taskOfuser(contact) {
     return new Promise((resolve, reject) => {
       this.http.post(Constants.URL_TASKOFUSER, contact)

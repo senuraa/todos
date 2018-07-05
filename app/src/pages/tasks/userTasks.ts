@@ -71,7 +71,7 @@ unique:any;
             var newArr = this.removeDuplicates(this.allTasks,'assigned_user')
             //this.unique = [...new Set(this.allTasks.map(item => item.Group))];
             for(var i=0;i<newArr.length;i++){
-              console.log(JSON.stringify(newArr[i]))
+              
               if(newArr[i].assigned_user!=window.localStorage.getItem("todos_phone_number")){
                 if(newArr[i].assignedUsers!=null){
                   filterAlert.addInput({

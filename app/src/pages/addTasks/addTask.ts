@@ -81,7 +81,13 @@ export class AddTask {
     if(this.myform.value.self){
       this.myform.value.assigned_to=window.localStorage.getItem('todos_phone_number')
     }else{
-      this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
+      var assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
+      //this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
+      if(assigned_to.charAt(0)=='0'){
+        assigned_to ='94'+''+assigned_to.replace('0','')
+        
+      }
+      this.myform.value.assigned_to = assigned_to;
     }
     //this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
     console.log(JSON.stringify(this.myform.value))

@@ -110,7 +110,7 @@ exports.upcomingtasks = function (req, res) {
     //         res.status(200).json(tasks)
     //     }
     // });
-        Task.find({ "assigned_user": phone_no, "status": status }).exec(function (err, tasks) {
+        Task.find({ "assigned_user": phone_no, "status": status }).populate('assignedUsers').exec(function (err, tasks) {
         if (err) {
             console.log('Tasks retrieve error', err);
             res.status(500).json(err);
@@ -179,11 +179,12 @@ exports.deleteTask = function (req, res) {
  * @param res
  */
 exports.updateTask = function (req, res) {
+    console.log(req.body)
     var id = req.body.id;
-    var title = req.body.title;
-    var description = req.body.description;
-    var status = req.body.status;
-    var assigned_user = req.body.assigned_to;
+    var title = req.body.formValues.title;
+    var description = req.body.formValues.description;
+    var status = req.body.formValues.status;
+    var assigned_user = req.body.formValues.assigned_to;
 
     var due_UnformattedDate = req.body.date;
     var due_date = new Date(due_UnformattedDate);
@@ -210,7 +211,21 @@ exports.updateTask = function (req, res) {
         });
     }
 }
-
+/**
+ * Get one task from _id
+ * @param req
+ * @param res
+ */
+exports.getOneTask = function(req,res){
+    var id = req.body._id
+    Task.findOne({_id: new ObjectId(id)}).populate('assignedUsers').exec(function(err,task){
+        if(err){
+            res.status(500).json({error:"error getting task"})
+        }else{
+            res.status(200).json(task)
+        }
+    })
+}
 /**
  * @param req
  * @param res

@@ -39,10 +39,32 @@ export class CModal {
 
     this.user = window.localStorage.getItem("todos_phone_number");
   }
-  
+  ionViewDidLoad(){
+    console.log('Date-->'+this.navParams.get('due_date'))
+    this.myform = new FormGroup({
+      title: new FormControl(this.navParams.get('title'), Validators.required),
+      description: new FormControl(this.navParams.get('description'), Validators.required),
+      project: new FormControl(this.navParams.get('project'), Validators.required),
+      assigned_to: new FormControl(this.navParams.get('assigned_user'), Validators.required),
+      status: new FormControl(this.navParams.get('status'), Validators.required),
+      date: new FormControl(this.navParams.get('due_date')),
+      //self: new FormControl(navParams.get('self'))
+    });
+  }
+  updateTask(){
+    let data = {
+      formValues:this.myform.value,
+      id:this.navParams.get('_id')
+    }
+    this.taskService.updateTask(data).then((response)=>{
+      if(response){
+        this.viewCtrl.dismiss();
+      }
+    })
+  }
   showDateTimePicker(event) {
     this.datePicker.show({
-      date: new Date(),
+      date: new Date(this.navParams.get('due_date')),
       mode: 'datetime',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
     }).then(
@@ -78,7 +100,7 @@ export class CModal {
       }
     })
   }
-
+  
   dismiss() {
     this.viewCtrl.dismiss();
   }
