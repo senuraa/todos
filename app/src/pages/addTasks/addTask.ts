@@ -85,7 +85,7 @@ export class AddTask {
       } else {
         var smsData = {
           phoneNumber: this.myform.value.assigned_to,
-          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. http://todos.com'
+          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. https://drive.google.com/open?id=1c9Qt8OegfhJDI3CK40Itd7OUcTDWENNl'
         }
         this.taskService.sendTaskSMS(smsData).then((res) => {
           this.viewCtrl.dismiss();
