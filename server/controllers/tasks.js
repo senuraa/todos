@@ -161,10 +161,11 @@ exports.changetaskstatus = function (req, res) {
  * @param res
  */
 exports.deleteTask = function (req, res) {
+    console.log('delete req'+req)
     var phone_no = req.body.phone_number;
     var id = req.body.taskId;
     var status = req.body.status;
-    Task.findOneAndUpdate({ "_id": new ObjectId(id), assigned_user : phone_no }, { $set: { status: status } },{new: true}, function(err, doc){
+    Task.findOneAndUpdate({ "_id": new ObjectId(id)}, { $set: { status: status } },{new: true}, function(err, doc){
         if (err) {
             console.log('Error Updating User', err);
             res.status(500).json(err);

@@ -117,15 +117,20 @@ unique:any;
       return obj;
     }, obj)).map((i) => obj[i]);
   }
-  deleteTask(index, task){
+  deleteTask(task){
+    //console.log(index+' '+task)
     let data = {
       phone_number : this.user.phone_number,
       taskId : task._id,
       status : "Deleted"
     }
     this.taskService.deleteTask(data).then((response) => {
+      let index = this.allTasks.indexOf(task);
+      //console.log(JSON.stringify(response))
       if(response){
         this.allTasks.splice(index,1);
+      }else{
+        console.log('error')
       }
     })
   }
