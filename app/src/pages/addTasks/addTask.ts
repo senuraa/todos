@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
 import { AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth.service';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -30,14 +31,22 @@ export class AddTask {
       project: new FormControl('', Validators.required),
       assigned_to: new FormControl('', Validators.required),
       status: new FormControl('Pending', Validators.required),
-      date: new FormControl(''),
+      date: new FormControl(),
       self: new FormControl(false)
     });
 
 
   }
+  datepicker(){
+    this.myform.patchValue({
+      date:moment(moment().format(), moment.ISO_8601).format()
+    })
+    //this.myform.value.date =  moment(moment().format(), moment.ISO_8601).format();
+    console.log(this.myform.value.date)
+  }
   ionViewDidLoad() {
 
+    //this.myform.value.date =  moment(moment().format(), moment.ISO_8601).format();
     this.contacts.find(['displayName', 'phoneNumbers'], { filter: "", multiple: true, hasPhoneNumber: true })
       .then((data) => {
         //console.log("contact_data - "+data)
@@ -56,25 +65,25 @@ export class AddTask {
     this.user = window.localStorage.getItem("todos_phone_number");
     console.log(this.user)
   }
-  showDateTimePicker(event) {
-    this.datePicker.show({
-      date: new Date(),
-      mode: 'datetime',
-      todayText:'Today',
-      nowText:'Now',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT
-    }).then(
-      date => {
-        if (date != undefined) {
-          event.target.value = date;
-          //event.target.value = this.datePipe.transform(date, 'short')
-          this.myform.value.date = event.target.value;
-        }
+  // showDateTimePicker(event) {
+  //   this.datePicker.show({
+  //     date: new Date(),
+  //     mode: 'datetime',
+  //     todayText:'Today',
+  //     nowText:'Now',
+  //     androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT
+  //   }).then(
+  //     date => {
+  //       if (date != undefined) {
+  //         event.target.value = date;
+  //         //event.target.value = this.datePipe.transform(date, 'short')
+  //         this.myform.value.date = event.target.value;
+  //       }
 
-      },
-      err => console.log('Error occurred while getting date: ', err)
-    );
-  }
+  //     },
+  //     err => console.log('Error occurred while getting date: ', err)
+  //   );
+  // }
 
   addNewTask() {
     //console.log('Date -'+this.myform.value.date)

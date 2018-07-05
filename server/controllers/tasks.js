@@ -186,12 +186,12 @@ exports.updateTask = function (req, res) {
     var status = req.body.formValues.status;
     var assigned_user = req.body.formValues.assigned_to;
 
-    var due_UnformattedDate = req.body.date;
-    var due_date = new Date(due_UnformattedDate);
+    var due_date = req.body.date;
+    //var due_date = new Date(due_UnformattedDate);
 
     var project = req.body.project;
 
-    if(due_UnformattedDate == ""){
+    if(due_date == ""){
         Task.findOneAndUpdate({ "_id": new ObjectId(id) }, { $set: { title: title, description: description, assigned_user: assigned_user, project: project, status : status } },{new: true}, function(err, doc){
             if (err) {
                 console.log('Error Updating User', err);

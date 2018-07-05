@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
 import { DatePipe } from '@angular/common';
 import { Contacts } from '@ionic-native/contacts';
-
+import * as moment from 'moment';
 @IonicPage()
 @Component({
   selector: 'page-CModal',
@@ -17,8 +17,11 @@ export class CModal {
   user: any;
   status = ["Pending", "Close", "Open"];
   taskData:any;
+  dDate: any;
   constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController,private datePipe:DatePipe, public navParams:NavParams) {
-    //console.log(navParams.get('title'))
+    this.dDate = navParams.get('due_date')
+
+    //var due_date = moment(date).format('YYYY-MM-DD HH:mm:ss')
     //this.taskData = navParams.get('myform')
     this.myform = new FormGroup({
       title: new FormControl(navParams.get('title'), Validators.required),
@@ -26,7 +29,7 @@ export class CModal {
       project: new FormControl(navParams.get('project'), Validators.required),
       assigned_to: new FormControl(navParams.get('assigned_user'), Validators.required),
       status: new FormControl(navParams.get('status'), Validators.required),
-      date: new FormControl(navParams.get('date')),
+      date: new FormControl(),
       //self: new FormControl(navParams.get('self'))
     });
 
@@ -40,16 +43,9 @@ export class CModal {
     this.user = window.localStorage.getItem("todos_phone_number");
   }
   ionViewDidLoad(){
-    console.log('Date-->'+this.navParams.get('due_date'))
-    this.myform = new FormGroup({
-      title: new FormControl(this.navParams.get('title'), Validators.required),
-      description: new FormControl(this.navParams.get('description'), Validators.required),
-      project: new FormControl(this.navParams.get('project'), Validators.required),
-      assigned_to: new FormControl(this.navParams.get('assigned_user'), Validators.required),
-      status: new FormControl(this.navParams.get('status'), Validators.required),
-      date: new FormControl(this.navParams.get('due_date')),
-      //self: new FormControl(navParams.get('self'))
-    });
+    this.myform.patchValue({
+      date:moment(this.navParams.get('due_date')).format()
+    })
   }
   updateTask(){
     let data = {

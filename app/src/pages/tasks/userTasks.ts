@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController,IonicPage, ActionSheetController, AlertController, ModalController } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
 import { DatePipe } from '@angular/common';
 
@@ -17,8 +17,13 @@ filter:any = {
 }
 sortName:String = 'Due Date'
 unique:any;
-  constructor(public navCtrl: NavController, private taskService: TasksService, private datePipe:DatePipe, public actionSheetCtrl:ActionSheetController, public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, private taskService: TasksService, private datePipe:DatePipe, public actionSheetCtrl:ActionSheetController, public alertCtrl:AlertController, public modalCtrl:ModalController) {
 
+  }
+  viewTask(task){
+    let taskModal = this.modalCtrl.create('CModal',task);
+    taskModal.present();
+    //console.log(JSON.stringify(task))
   }
   showActionSheet(){
     let actionSheet = this.actionSheetCtrl.create({
