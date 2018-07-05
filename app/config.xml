@@ -3,7 +3,7 @@
     <name>todos</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.1.13:8100" />
+    <content original-src="index.html" src="http://192.168.8.123:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -98,6 +98,8 @@
     <allow-navigation href="http://192.168.1.9:8100" />
     <allow-navigation href="http://192.168.1.13:8100" />
     <allow-navigation href="http://192.168.1.13:8101" />
+    <allow-navigation href="http://192.168.8.123:8100" />
+    <allow-navigation href="http://192.168.1.32:8100" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
