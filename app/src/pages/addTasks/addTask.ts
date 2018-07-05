@@ -20,6 +20,7 @@ export class AddTask {
   status = ["Pending", "Close", "Open"];
   contactList: { name: any, phone: any }[] = [];
   contactListFiltered: any;
+ // self:boolean=true;
 
   constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController, private datePipe: DatePipe, private contacts: Contacts, private alertCtrl: AlertController, public authService: AuthService) {
 
@@ -29,7 +30,8 @@ export class AddTask {
       project: new FormControl('', Validators.required),
       assigned_to: new FormControl('', Validators.required),
       status: new FormControl('Pending', Validators.required),
-      date: new FormControl('')
+      date: new FormControl(''),
+      self: new FormControl(false)
     });
 
 
@@ -58,11 +60,14 @@ export class AddTask {
     this.datePicker.show({
       date: new Date(),
       mode: 'datetime',
+      todayText:'Today',
+      nowText:'Now',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_LIGHT
     }).then(
       date => {
         if (date != undefined) {
-          event.target.value = this.datePipe.transform(date, 'short')
+          event.target.value = date;
+          //event.target.value = this.datePipe.transform(date, 'short')
           this.myform.value.date = event.target.value;
         }
 
@@ -72,7 +77,13 @@ export class AddTask {
   }
 
   addNewTask() {
-    this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
+    //console.log('Date -'+this.myform.value.date)
+    if(this.myform.value.self){
+      this.myform.value.assigned_to=window.localStorage.getItem('todos_phone_number')
+    }else{
+      this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
+    }
+    //this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
     console.log(JSON.stringify(this.myform.value))
     let data = {
       formValues: this.myform.value,
@@ -80,12 +91,17 @@ export class AddTask {
     }
     this.taskService.addTasks(data).then((response) => {
       if (response) {
+        if(this.myform.value.assigned_to==window.localStorage.getItem('todos_phone_number')){
+          this.viewCtrl.dismiss();
+        }else{
         this.sendNotification(this.myform.value.assigned_to, 'A new task has been added')
         this.viewCtrl.dismiss();
+        }
+        
       } else {
         var smsData = {
           phoneNumber: this.myform.value.assigned_to,
-          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. https://drive.google.com/open?id=1c9Qt8OegfhJDI3CK40Itd7OUcTDWENNl'
+          message: 'A task has been assigned to you on Todos. Download the Todos app to see your tasks. https://speedx-senuraa.c9users.io/todos.apk'
         }
         this.taskService.sendTaskSMS(smsData).then((res) => {
           this.viewCtrl.dismiss();
@@ -100,10 +116,10 @@ export class AddTask {
     //console.log('onInput - '+JSON.stringify(this.contactList))
 
     //console.log('searchTerm - '+JSON.stringify(searchTerm,['message','arguments','type','name']))
-    console.log('Searchterm val = ' + searchTerm.target.value)
+    //console.log('Searchterm val = ' + searchTerm.target.value)
     if (searchTerm.target.value && searchTerm.target.value.trim() !== '' && this.contactList.length != 0) {
       this.contactList.filter((item) => {
-        console.log('onInput - ' + JSON.stringify(item))
+        //console.log('onInput - ' + JSON.stringify(item))
         if (item.name != undefined) {
 
           if (item.name.toLowerCase().includes(searchTerm.target.value.toLowerCase())) {
@@ -159,19 +175,19 @@ export class AddTask {
     this.authService.getPlayerId(userData).then((response) => {
       resp = response;
       player_ids = resp.player_ids;
-      console.log('player_id ->' + JSON.stringify(player_ids))
+      //console.log('player_id ->' + JSON.stringify(player_ids))
       var notificationObj = {
         contents: { en: msg },
         include_player_ids: player_ids
       }
-      console.log('data' + JSON.stringify(notificationObj))
+      //console.log('data' + JSON.stringify(notificationObj))
       window["plugins"].OneSignal.postNotification(notificationObj,
         function (successResponse) {
-          console.log("Notification Post Success:", successResponse);
+          //console.log("Notification Post Success:", successResponse);
         },
         function (failedResponse) {
-          console.log("Notification Post Failed: ", failedResponse);
-          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+          //console.log("Notification Post Failed: ", failedResponse);
+          //alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
         });
     })
 

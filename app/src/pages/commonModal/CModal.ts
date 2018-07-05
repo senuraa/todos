@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ViewController } from 'ionic-angular';
+import { NavController, IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
@@ -16,16 +16,18 @@ export class CModal {
   myform: FormGroup;
   user: any;
   status = ["Pending", "Close", "Open"];
-
-  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController,private datePipe:DatePipe, private contacts: Contacts) {
-  
+  taskData:any;
+  constructor(public navCtrl: NavController, public taskService: TasksService, private datePicker: DatePicker, public viewCtrl: ViewController,private datePipe:DatePipe, public navParams:NavParams) {
+    //console.log(navParams.get('title'))
+    //this.taskData = navParams.get('myform')
     this.myform = new FormGroup({
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      project: new FormControl('', Validators.required),
-      assigned_to: new FormControl('', Validators.required),
-      status: new FormControl('Pending', Validators.required),
-      date: new FormControl('')
+      title: new FormControl(navParams.get('title'), Validators.required),
+      description: new FormControl(navParams.get('description'), Validators.required),
+      project: new FormControl(navParams.get('project'), Validators.required),
+      assigned_to: new FormControl(navParams.get('assigned_user'), Validators.required),
+      status: new FormControl(navParams.get('status'), Validators.required),
+      date: new FormControl(navParams.get('date')),
+      //self: new FormControl(navParams.get('self'))
     });
 
     // this.contacts.find(["*"], {filter: "", multiple: true, hasPhoneNumber:true})
@@ -37,7 +39,7 @@ export class CModal {
 
     this.user = window.localStorage.getItem("todos_phone_number");
   }
-
+  
   showDateTimePicker(event) {
     this.datePicker.show({
       date: new Date(),

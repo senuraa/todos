@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="appbg">
-    <ion-title>Home</ion-title>
+    <ion-title>Add Task</ion-title>
     <ion-buttons left>
       <button ion-button icon-only (click)="viewCtrl.dismiss()" color="apppink">
         <ion-icon name="arrow-back"></ion-icon>
@@ -11,6 +11,8 @@
 
 <ion-content class="outer-content">
   <form novalidate [formGroup]="myform">
+
+
     <ion-list>
       <ion-list-header>
         Details
@@ -33,36 +35,44 @@
       <ion-list-header>
         Assignment & Details
       </ion-list-header>
+      <!-- <ion-item>
+        <ion-label>
+          Assigned To Self
+        </ion-label>
+        <ion-toggle formControlName="self"></ion-toggle>
+      </ion-item> -->
+      <ion-item>
+        <ion-searchbar formControlName="assigned_to" [showCancelButton]="shouldShowCancel" placeholder="Assigned User (947********)"
+          (ionInput)="onInput($event)"></ion-searchbar>
+        <ion-item class="loadList" *ngFor="let conFil of contactListFiltered" (click)="fillBox(conFil)">
+          <ion-label>
+            <b>{{conFil.name}}</b>
+          </ion-label>
+        </ion-item>
+      </ion-item>
+
       <ion-item>
         <ion-label floating>
           Project
         </ion-label>
         <ion-input type="text" class="form-control" formControlName="project"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label floating>Assigned To</ion-label>
-        <ion-input type="text" class="form-control" formControlName="assigned_to"></ion-input>
-        <datalist id="list">
-          <option value="new">new</option>
-          <option value="new">new</option>
-          <option value="new">new</option>
-          <option value="new">new</option>
-        </datalist>
-      </ion-item>
+
       <ion-item>
         <ion-label>Task Status</ion-label>
         <ion-select formControlName="status" formControlName="status" interface="popover">
           <ion-option *ngFor="let stat of status" [value]="stat">{{stat}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item  showWhen="ios,android,windows" hideWhen="core,mobileweb">
+      <ion-item>
         <ion-label>Date</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb" hideWhen="ios,android"></ion-datetime>
-        <ion-input formControlName="date" (focus)="showDateTimePicker($event);$event.stopPropagation()" readonly="readonly" showWhen="ios,android" hideWhen="core,mobileweb"></ion-input>
+        <ion-input formControlName="date" (focus)="showDateTimePicker($event);$event.stopPropagation()" readonly="readonly" showWhen="ios,android"
+          hideWhen="core,mobileweb"></ion-input>
       </ion-item>
-      </ion-list>
-      <button ion-button full (click)="addNewTask()" color="appgreen">Add task</button>
-      <!-- <ion-item>
+    </ion-list>
+    <!-- <button ion-button full (click)="addNewTask()" color="appgreen">Add task</button> -->
+    <!-- <ion-item>
         <label>Status</label>
         <select class="form-control" formControlName="status">
           <option value="">Please select a status</option>
@@ -71,11 +81,11 @@
         </select>
       </ion-item> -->
 
-      <!-- <ion-item>
+    <!-- <ion-item>
         <ion-label>Date</ion-label>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" class="form-control" formControlName="date" showWhen="core,mobileweb"></ion-datetime>
         <ion-input formControlName="date" (ionFocus)="showDateTimePicker($event)" showWhen="ios,android,windows"></ion-input>
       </ion-item> -->
-      
+
   </form>
 </ion-content>

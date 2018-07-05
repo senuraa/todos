@@ -10,7 +10,13 @@ var TaskSchema = new Schema({
     created_date: Date,
     due_date: Date,
     project: String
-});
+},{ toJSON: { virtuals: true } });
 
+TaskSchema.virtual('assignedUsers',{
+    ref:'User',
+    localField:'assigned_user',
+    foreignField:'phone_number',
+    justOne:true
+})
 mongoose.model('Task', TaskSchema);
 

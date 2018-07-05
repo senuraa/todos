@@ -21,7 +21,7 @@ export class VerifyPage {
   user: any = {
     firstname: this.navParams.get('firstname'),
     lastname: this.navParams.get('lastname'),
-    phone_number: this.navParams.get('phone_number'),
+    phone_number: this.navParams.get('phone_number').replace('0',''),
     country_code: this.navParams.get('country_code'),
     token: ''
   }
