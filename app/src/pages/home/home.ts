@@ -34,11 +34,32 @@ export class HomePage {
   viewTask(task){
     let taskModal = this.modalCtrl.create('CModal',task);
     taskModal.present();
+    taskModal.onDidDismiss(() => {
+      let data = {
+        phone_number: this.user,
+        status: "Pending"
+      }
+      this.taskService.upcommingTasks(data).then((resp) => {
+        this.response = resp;
+        for (var i = 0; i < this.response.length; i++) {
+          if (this.response[i].due_date != undefined) {
+            if (this.todayDate < new Date(this.response[i].due_date)) {
+              //this.response[i].condition = 'upcoming'
+            } else {
+              this.response[i].condition = 'overdue'
+            }
+            //this.response[i].due_date = this.datePipe.transform(this.response[i].due_date, 'mediumTime')
+          }
+        }
+        this.upcommingTasks = this.response;
+      })
+    })
     console.log(JSON.stringify(task))
   }
-  changeStatus(index, task) {
+  changeStatus(inde, task) {
     task.status = "Close";
     this.taskService.changeStatus(task).then((res) => {
+      let index = this.upcommingTasks.indexOf(task);
       if (res) {
         this.upcommingTasks.splice(index, 1);
       }

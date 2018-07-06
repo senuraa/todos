@@ -92,7 +92,7 @@ export class AddTask {
     }else{
       var assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
       //this.myform.value.assigned_to = this.myform.value.assigned_to.replace(/ /g, '').replace(/-/g, '').replace(/\(/g, "").replace(/\)/g, "").replace(/\+/g, "")
-      if(assigned_to.charAt(0)=='0'){
+      if(assigned_to.charAt(0)=='0' || assigned_to.length == 9){
         assigned_to ='94'+''+assigned_to.replace('0','')
         
       }
@@ -188,6 +188,7 @@ export class AddTask {
       phone_number: phone_number
     }
     this.authService.getPlayerId(userData).then((response) => {
+      console.log("player id list -> " +JSON.stringify(response))
       resp = response;
       player_ids = resp.player_ids;
       //console.log('player_id ->' + JSON.stringify(player_ids))
@@ -198,11 +199,11 @@ export class AddTask {
       //console.log('data' + JSON.stringify(notificationObj))
       window["plugins"].OneSignal.postNotification(notificationObj,
         function (successResponse) {
-          //console.log("Notification Post Success:", successResponse);
+          console.log("Notification Post Success:", successResponse);
         },
         function (failedResponse) {
-          //console.log("Notification Post Failed: ", failedResponse);
-          //alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+          console.log("Notification Post Failed: ", failedResponse);
+          alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
         });
     })
 
