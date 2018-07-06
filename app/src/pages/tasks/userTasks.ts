@@ -23,6 +23,15 @@ unique:any;
   viewTask(task){
     let taskModal = this.modalCtrl.create('CModal',task);
     taskModal.present();
+    taskModal.onDidDismiss(() => {
+      this.user.phone_number = window.localStorage.getItem("todos_phone_number");
+      this.taskService.taskOfuser(this.user).then((response) => {
+        this.allTasks = response;
+        for (var i = 0; i < this.allTasks.length; i++) {
+          this.allTasks[i].due_date = this.datePipe.transform(this.allTasks[i].due_date,'short')
+      }
+      })
+    })
     //console.log(JSON.stringify(task))
   }
   showActionSheet(){
